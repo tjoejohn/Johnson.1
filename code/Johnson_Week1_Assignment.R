@@ -36,6 +36,7 @@ df
 row.names(df) <- df$playernumber
 df
 
+
 # Remove the character vector with unique values from the data frame.
 
 #To do this: 
@@ -44,17 +45,31 @@ df
 
 #Except lastinitial would be name of whaever column you want to remove. 
 
-# Add 1 row with unique numeric values to the data frame.
+# or this which I could not get to move the correct column
+row.names(df1) <- df1$passes
+df <- df[,-1]
+df
 
-#To do this, do as beofore but with letter f: 
+# Add 1 row with unique numeric values to the data frame
+
+#To do this use the following code 
+add.row <- data.frame(200,99,100.10,179)
+# next Bind rows:
+df1 <- rbind(df, add.row)
+tail(df)
+#obviosly "add.row" would be whatever the name of the data is you want to add.
+
 
 #rebind everything. (reframe is needed)
-> data <- cbind(a,b,c,d,e,f)
-> df
+data <- cbind(a,b,c,d,e,f)
+df
 
 # Export the data frame as a .csv file 
 
 # Generate summary statistics of your data frame and copy them as text into your script under a new section heading.
 
 # Push your script and your .csv file to GitHub in a new "Week1" folder.
+
+setwd("c:/GitHub/Johnson.1/data")
+getwd()
 
