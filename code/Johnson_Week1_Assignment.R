@@ -55,21 +55,39 @@ df
 #To do this use the following code 
 add.row <- data.frame(200,99,100.10,179)
 # next Bind rows:
-df1 <- rbind(df, add.row)
+new_row
+df <- rbind(df, new_row)
 tail(df)
+
+#IT will fail, so than do this to get it to work:
+names(new_row) <- names(df)
+df <- rbind(df, new_row)
+tail(df)
+
 #obviosly "add.row" would be whatever the name of the data is you want to add.
 
 
-#rebind everything. (reframe is needed)
-data <- cbind(a,b,c,d,e,f)
-df
+#TO set working directory since first asignment:
+setwd("C:/GitHub/Johnson.1")
+getwd()
 
 # Export the data frame as a .csv file 
+#to do this, ues the following code:
+write.csv(df, file = "Week1assignment.csv")
+#Obviosly "Week1assignment" can be whatever name you want it to be
 
 # Generate summary statistics of your data frame and copy them as text into your script under a new section heading.
 
-# Push your script and your .csv file to GitHub in a new "Week1" folder.
+#To do this do:
+> summary(df)
 
-setwd("c:/GitHub/Johnson.1/data")
-getwd()
+#Copyed and patsted summary statistics from my data frame: 
+
+firstinitial          passes           touchdowns        interceptions     
+Length:16          Length:16          Length:16          Length:16         
+Class :character   Class :character   Class :character   Class :character  
+Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+
+
+# Push your script and your .csv file to GitHub in a new "Week1" folder.
 
