@@ -1,0 +1,89 @@
+# With the data frame you created last week you will:
+
+#first, update data frame from last week to this. Same numbers as last week in Johnson_Week_1_Assignmnet, but now have names infront instead of letters 
+
+unique.char <- c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "o", "p")
+group.char <- c("q", "q", "q", "q", "q", "r", "q", "q", "s", "q", "q", "w", "q", "q", "q")
+uniqu.num <- c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15)
+rep.num <- c(15,16,17,18,19,20,18,21,22,23,18,24,25,18,26)
+dec.num <- c(0.56,27,28,29,0.99,0.21,0.67,30,31,32,33,0.88,0.23,45,50)
+
+#next follow these steps. 
+# Combine vectors into a data frame:
+df <- as.data.frame(cbind(unique.char,group.char,uniqu.num,rep.num,dec.num))
+#Make sure the numeric columns stay numeric:
+df$uniqu.num <- as.numeric(as.character(df$uniqu.num))
+df$rep.num <- as.numeric(as.character(df$rep.num))
+df$dec.num <- as.numeric(as.character(df$dec.num))
+
+# Create a row to add to the data frame:
+add.row <- data.frame("X", "q", 99,100,18.18)
+
+# Match the names of the columns:
+colnames(add.row) <- colnames(df)    
+
+# Bind rows:
+df <- rbind(df, add.row)
+
+# Now to move the row names and delete the column. 
+df$unique.char <- NULL
+df
+
+
+# Create a barplot for one numeric column, grouped by the character vector with 3 unique values
+#Now to make barplot, have to first make histogram by doing this:
+hist(df$rep.num)
+#Now to create barplot for one numeric column, grouped by the character vector with 3 unique values
+# Now let's generate means for each group based on the factor value for the $rep.num column. 
+# We will also specify the function to be applied is generating mean() values with the "FUN" argument:
+df.mean <- aggregate(df$rep.num ~df$group.char, FUN = "mean")
+df.mean
+# $symbols can get messy fast, so ranme without them:
+colnames(df.mean) <- c("Factor","Mean")
+df.mean
+
+#Now we can plot the mean values by factor:
+barplot(df.mean$Mean)
+
+#Missing X axis, so do this:
+barplot(df.mean$Mean, names.arg = df.mean$Factor)
+
+  # Add error bars with mean and standard deviation to the plot
+# First we need to use the 'FUN' argument to call the standard deviation, or sd(), function:
+df.sd <- aggregate(df$rep.num ~df$group.char, FUN = "sd")
+# And add column names:
+colnames(df.sd) <- c("Factor", "StanDev")
+df.sd
+
+#Add error bars to exisiting plot by using the arrows () function
+# First we need to create a plot object in R:
+b.plot <- barplot(df.mean$Mean, names.arg = df.mean$Factor)
+
+# To create the flat top and bottom of the error bars we use the argument "angle = 90" to specify they are perpendicular to the y-axis. 
+# The "code = 3" argument is used to draw arrows on both ends (not just above or below the mean): 
+
+arrows(b.plot, df.mean$Mean-df.sd$StanDev,
+       b.plot, df.mean$Mean+df.sd$StanDev,angle=90,code=3)
+#otice how in box q, the top of the error bar gets cut off, so we must expand the range of the Y axis.
+Notice the ylim must be a range - it's not just a maximum or minimum value:
+b.plot <- barplot(df.mean$Mean, names.arg = df.mean$Factor, ylim = c(0,30))
+
+#Than redraw error bars:
+arrows(b.plot, df.mean$Mean-df.sd$StanDev,
+       b.plot, df.mean$Mean+df.sd$StanDev,angle=90,code=3)
+
+# Change the x and y labels and add a title
+
+#To add x and Y lables:
+plot(df$rep.num ~ df$group.char, xlab = "Species", ylab = "#offishcaught", main = "Fish caught at Gate pond assorted by species")
+
+  # Export the plot as a PDF that is 4 inches wide and 7 inches tall.
+
+# Create a scatter plot between two of your numeric columns.
+  # Change the point shape and color to something NOT used in the example.
+  # Change the x and y labels and add a title
+  # Export the plot as a JPEG by using the "Export" button in the plotting pane.
+
+# Upload both plots with the script used to create them to GitHub.
+  # Follow the same file naming format as last week for the script.
+  # Name plots as Lastname_barplot or Lastname_scatterplot. Save them to your "plots" folder.
