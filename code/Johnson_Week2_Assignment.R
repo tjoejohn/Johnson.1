@@ -77,11 +77,17 @@ arrows(b.plot, df.mean$Mean-df.sd$StanDev,
 
 #To add x and Y lables:
 barplot(df$dec.num ~ df$uniqu.num, xlab = "lastinitial", ylab = "yards")
+#To add title: 
 
   # Export the plot as a PDF that is 4 inches wide and 7 inches tall.
 
 # Create a scatter plot between two of your numeric columns.
+# Typically, the x-axis is used to plot the explanatory variable and the y-axis is used to plot the response variable.
+#To create scatter plot:
+plot(df$dec.num ~ df$rep.num)
+
   # Change the point shape and color to something NOT used in the example.
+
   # Change the x and y labels and add a title
   # Export the plot as a JPEG by using the "Export" button in the plotting pane.
 
