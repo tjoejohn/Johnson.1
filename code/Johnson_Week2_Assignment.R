@@ -76,7 +76,7 @@ arrows(b.plot, df.mean$Mean-df.sd$StanDev,
 # Change the x and y labels and add a title
 
 #To add x and Y lables:
-barplot(df$dec.num ~ df$uniqu.num, xlab = "lastinitial", ylab = "yards")
+barplot(df$dec.num ~ df$uniqu.num, xlab = "football team", ylab = "field goals")
 #To add title: 
 
   # Export the plot as a PDF that is 4 inches wide and 7 inches tall.
@@ -85,11 +85,14 @@ barplot(df$dec.num ~ df$uniqu.num, xlab = "lastinitial", ylab = "yards")
 # Typically, the x-axis is used to plot the explanatory variable and the y-axis is used to plot the response variable.
 #To create scatter plot:
 plot(df$dec.num ~ df$rep.num)
-
-  # Change the point shape and color to something NOT used in the example.
-
-  # Change the x and y labels and add a title
-  # Export the plot as a JPEG by using the "Export" button in the plotting pane.
+# Change the point shape and color to something NOT used in the example.
+?pch
+#This gives you a list if colors and shapes
+pch=19
+# Change the x and y labels and add a title
+plot(df$dec.num ~ df$uniqu.num, xlab = "#of apple trees planted", ylab = "Apples grown", main = "Johson Apple Farm ", 
+     cex.axis=0.8, cex.main = 0.5, cex.lab = 1.00, pch=15, col= "red2")
+# Export the plot as a JPEG by using the "Export" button in the plotting pane.
 
 # Upload both plots with the script used to create them to GitHub.
   # Follow the same file naming format as last week for the script.
