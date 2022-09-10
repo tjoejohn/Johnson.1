@@ -92,6 +92,7 @@ pch=19
 # Change the x and y labels and add a title
 plot(df$dec.num ~ df$uniqu.num, xlab = "#of apple trees planted", ylab = "Apples grown", main = "Johson Apple Farm ", 
      cex.axis=0.8, cex.main = 0.5, cex.lab = 1.00, pch=15, col= "red2")
+#Set working directory!!!
 # Export the plot as a JPEG by using the "Export" button in the plotting pane.
 
 # Upload both plots with the script used to create them to GitHub.
