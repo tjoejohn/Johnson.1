@@ -5,7 +5,7 @@
 unique.char <- c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "o", "p")
 group.char <- c("q", "q", "q", "q", "q", "r", "r", "r", "s", "s", "s", "w", "w", "w", "w")
 uniqu.num <- c(1,2,3,4,5,6,7,8,69,80,118,115,110,99,88)
-rep.num <- c(15,16,17,18,19,20,18,21,22,23,18,24,25,18,26)
+rep.num <- c(15,16,18,26,19,20,18,21,22,23,18,24,25,18,26)
 dec.num <- c(0.56,9,10,11,0.99,0.21,0.60,30,12,14,13,0.88,0.23,27,50)
 
 #next follow these steps. 
@@ -65,9 +65,9 @@ b.plot <- barplot(df.mean$Mean, names.arg = df.mean$Factor)
 arrows(b.plot, df.mean$Mean-df.sd$StanDev,
        b.plot, df.mean$Mean+df.sd$StanDev,angle=90,code=3)
 
-#Notice how in box q, the top of the error bar gets cut off, so we must expand the range of the Y axis.
+#Notice how in box q, the top and bottom of the error bar gets cut off, so we must expand the range of the Y axis.
 #Notice the ylim must be a range - it's not just a maximum or minimum value:
-b.plot <- barplot(df.mean$Mean, names.arg = df.mean$Factor, ylim = c(0,40))
+b.plot <- barplot(df.mean$Mean, names.arg = df.mean$Factor, ylim = c(0,70))
 
 #Than redraw error bars:
 arrows(b.plot, df.mean$Mean-df.sd$StanDev,
