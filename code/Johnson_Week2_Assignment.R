@@ -46,16 +46,19 @@ barplot(df.mean$Mean)
 #Missing X axis, so do this:
 barplot(df.mean$Mean, names.arg = df.mean$Factor)
 
-  # Add error bars with mean and standard deviation to the plot
-# First we need to use the 'FUN' argument to call the standard deviation, or sd(), function:
+# Add error bars with mean and standard deviation to the plot
+
+ # First we need to use the 'FUN' argument to call the standard deviation, or sd(), function:
 df.sd <- aggregate(df$rep.num ~df$group.char, FUN = "sd")
 # And add column names:
 colnames(df.sd) <- c("Factor", "StanDev")
 df.sd
 
+barplot(df.mean$Mean)
 #Add error bars to exisiting plot by using the arrows () function
-# First we need to create a plot object in R:
-b.plot <- barplot(df.mean$Mean, names.arg = df.mean$Factor)
+# First we need to create a plot object in R.
+#We also need to Change the x and y labels and add a title, and expand the Y limits!
+b.plot <- barplot(df.mean$Mean, names.arg = df.mean$Factor, xlab = "Football Player last name initial", ylab = "#of touchdowns", main = "Susquehanna U Football", ylim = c(-2,70))
 
 # To create the flat top and bottom of the error bars we use the argument "angle = 90" to specify they are perpendicular to the y-axis. 
 # The "code = 3" argument is used to draw arrows on both ends (not just above or below the mean): 
@@ -63,24 +66,9 @@ b.plot <- barplot(df.mean$Mean, names.arg = df.mean$Factor)
 arrows(b.plot, df.mean$Mean-df.sd$StanDev,
        b.plot, df.mean$Mean+df.sd$StanDev,angle=90,code=3)
 
-#Wait!! In box q, the top and bottom of the error bar gets cut off, so we must expand the range of the Y axis.
-#Notice the ylim must be a range - it's not just a maximum or minimum value:
-barplot(df.mean$Mean, names.arg = df.mean$Factor, ylim = c(-2,70))
-
-#Than redraw error bars:
-arrows(b.plot, df.mean$Mean-df.sd$StanDev,
-       b.plot, df.mean$Mean+df.sd$StanDev,angle=90,code=3)
-
-# Change the x and y labels and add a title
-
-#To add x and Y lables and titel:
-
-
-barplot(height <- c(30.57143,21.00000,22.20000), xlab = "Football Player", ylab = "#of touchdowns", main = "Susquehanna U Football")
-
-#Redraw Error bars: 
-arrows(b.plot, df.mean$Mean-df.sd$StanDev,
-       b.plot, df.mean$Mean+df.sd$StanDev,angle=90,code=3)
+#Set working directory!
+setwd("C:/GitHub/Johnson.1")
+getwd()
 
 
   # Export the plot as a PDF that is 4 inches wide and 7 inches tall.
