@@ -3,7 +3,7 @@
 #first, update data frame from last week to this. Same numbers as last week in Johnson_Week_1_Assignmnet, but now have names infront instead of letters 
 
 unique.char <- c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "o", "p")
-group.char <- c("q", "q", "q", "q", "q", "r", "r", "r", "s", "s", "s", "w", "w", "w", "w")
+group.char <- c("q", "q", "q", "q", "q", "q", "r", "r", "r", "r", "s", "s", "s", "s", "s")
 uniqu.num <- c(1,2,3,4,5,6,7,8,69,80,118,115,110,99,88)
 rep.num <- c(15,16,18,26,19,20,18,21,22,23,18,24,25,18,26)
 dec.num <- c(0.56,9,10,11,0.99,0.21,0.60,30,12,14,13,0.88,0.23,27,50)
@@ -31,15 +31,13 @@ df
 
 
 # Create a barplot for one numeric column, grouped by the character vector with 3 unique values
-#Now to make barplot, have to first make histogram by doing this:
-hist(df$rep.num)
 #Now to create barplot for one numeric column, grouped by the character vector with 3 unique values
 # Now let's generate means for each group based on the factor value for the $rep.num column. 
 # We will also specify the function to be applied is generating mean() values with the "FUN" argument:
 df.mean <- aggregate(df$rep.num ~df$group.char, FUN = "mean")
 df.mean
 # $symbols can get messy fast, so ranme without them:
-colnames(df.mean) <- c("Factor","Mean")
+colnames(df.mean) <- c("Factor", "Mean")
 df.mean
 
 #Now we can plot the mean values by factor:
@@ -65,9 +63,9 @@ b.plot <- barplot(df.mean$Mean, names.arg = df.mean$Factor)
 arrows(b.plot, df.mean$Mean-df.sd$StanDev,
        b.plot, df.mean$Mean+df.sd$StanDev,angle=90,code=3)
 
-#Notice how in box q, the top and bottom of the error bar gets cut off, so we must expand the range of the Y axis.
+#Wait!! In box q, the top and bottom of the error bar gets cut off, so we must expand the range of the Y axis.
 #Notice the ylim must be a range - it's not just a maximum or minimum value:
-b.plot <- barplot(df.mean$Mean, names.arg = df.mean$Factor, ylim = c(0,70))
+barplot(df.mean$Mean, names.arg = df.mean$Factor, ylim = c(-2,70))
 
 #Than redraw error bars:
 arrows(b.plot, df.mean$Mean-df.sd$StanDev,
@@ -75,9 +73,15 @@ arrows(b.plot, df.mean$Mean-df.sd$StanDev,
 
 # Change the x and y labels and add a title
 
-#To add x and Y lables:
-barplot(df$dec.num ~ df$uniqu.num, xlab = "football team", ylab = "field goals")
-#To add title: 
+#To add x and Y lables and titel:
+
+
+barplot(height <- c(30.57143,21.00000,22.20000), xlab = "Football Player", ylab = "#of touchdowns", main = "Susquehanna U Football")
+
+#Redraw Error bars: 
+arrows(b.plot, df.mean$Mean-df.sd$StanDev,
+       b.plot, df.mean$Mean+df.sd$StanDev,angle=90,code=3)
+
 
   # Export the plot as a PDF that is 4 inches wide and 7 inches tall.
 
