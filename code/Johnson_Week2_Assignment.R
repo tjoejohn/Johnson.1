@@ -77,6 +77,8 @@ getwd()
 #or can do this
 pdf( file = "SusquehannaUFootball.pdf", width = 4, height = 7)
 dev.off()
+  # Export the plot as a PDF that is 4 inches wide and 7 inches tall. #You did everything except export the plot! Where is the pdf code? Everything else in this looks great.
+
 
 # Create a scatter plot between two of your numeric columns.
 # Typically, the x-axis is used to plot the explanatory variable and the y-axis is used to plot the response variable.
