@@ -18,7 +18,7 @@ library(learnPopGen)
 
 #2: Do Code
 install.packages(username/packagename)
-#user name is gitggub useres name. Package name is 
+#user name is github useres name. Package name is 
 
     # Copy-paste into your script - and run - an example from the reference manual for a function within this package related to a measure of genetic drift. 
 #Package called learnPopGen
@@ -43,7 +43,9 @@ plot(object,show="genotypes")
 print(genetic.drift() 
 object<-genetic.drift(p0=0.7,show="heterozygosity") 
 plot(object,show="genotypes"))
-  
+
+###Won't run????'
+
     # After running the function example, manipulate a parameter within the function to create a new result. 
     
 object<-genetic.drift(p0=0.475,show="fixed") 
