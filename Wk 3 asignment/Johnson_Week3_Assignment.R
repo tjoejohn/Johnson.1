@@ -13,9 +13,12 @@
     # Find a package that contains at least one function specifically designed to measure genetic drift.
 
 #Install package by looking up packagage on google and doing one of the flowing:
-#1. In Control pannel on middle to bottom right, click packages. Pres install on left with down arrow in grey box. Type in name of package. Press Install.package. Let it install (might take a bit). Next, in tpacgages tab, chekc packakge(s) you want to run. Than this should show up. 
-detach("package:learnPopGen", unload = TRUE)
+#1. In Control pannel on middle to bottom right, click packages. Pres install on left with down arrow in grey box. Type in name of package. Press Install.package. Let it install (might take a bit). Next, in pacgages tab, check packakge(s) you want to run. Than this should show up. 
 library(learnPopGen)
+
+#2: Do Code
+install.packages(username/packagename)
+#user name is gitggub useres name. Package name is 
 
     # Copy-paste into your script - and run - an example from the reference manual for a function within this package related to a measure of genetic drift. 
 #Package called learnPopGen
@@ -37,7 +40,7 @@ plot(object,show="genotypes")
 
         # Depending on the function, either upload a plot of the result or use print() and copy/paste the console output into your script.
 
-print()genetic.drift 
+print(genetic.drift() 
 object<-genetic.drift(p0=0.7,show="heterozygosity") 
 plot(object,show="genotypes"))
   
@@ -56,13 +59,41 @@ print(object<-genetic.drift(p0=0.475,show="fixed"))
 
 ## (4) Using Google and ONLY packages from GitHub or CRAN:
     # Find a package that will generate standard diversity metrics for community ecology, specifically Simpson's Diversity Index.
+
+#package called vegan . Follow same steps from (3) to install package. 
+
     # Copy-paste into your script - and run - an example from the reference manual for a function to calculate Simpson's diversity. 
+
+diversityresult(x, y = NULL, factor = NULL, level = NULL, 
+                index=c("Simpson"), 
+                method=c("pooled", "each site", "mean", "sd", "max", "jackknife"), 
+                sortit = FALSE, digits = 8)
+
+data("BCI")
+data(BCI, BCI.env)
+H <- diversity(BCI)
+simp <- diversity(BCI, "simpson")
+plot(simp, pch = 17, col = "green")
+
+#Note**** color name must be in quotes!!!!!
+
         # Depending on the example usage of the function, either upload a plot of the result or use print() and copy/paste the console output into your script.
+
+#Remember to Export plot as PDF, 7X4, Landscape
+
     # After running the function example, modify your script to generate another diversity metric that is NOT part of the example. 
         # If there are two diversity metrics in the example script, neither of these will count as the modified script.
         # Hint: If the function can "only" caluclate Simpson's diversity, the inverse of Simpson's diversity is another common metric. 
+#This is the inverse simpsons diversity index!
+
+data(BCI, BCI.env)
+H <- diversity(BCI)
+invsimp <- diversity(BCI, "inv")
+plot(invsimp, pch = 7, col = "purple"
         # Add the results of this manipulation to your script (if in the console) or upload the new plot.
-        
+     
+     #Remember to Export plot as PDF, 7X4, Landscape!
+     
           # Diversity metrics are frequently used in community ecology for reasons ranging from a quick comparison between sites to understanding community stability.
           # Their calculation can be very tedious by hand - and very fast with a package designed for the operation.
 
