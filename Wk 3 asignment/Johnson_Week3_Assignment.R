@@ -11,11 +11,43 @@
 
 ## (3) Using Google and ONLY packages from GitHub or CRAN:
     # Find a package that contains at least one function specifically designed to measure genetic drift.
+
+#Install package by looking up packagage on google and doing one of the flowing:
+#1. In Control pannel on middle to bottom right, click packages. Pres install on left with down arrow in grey box. Type in name of package. Press Install.package. Let it install (might take a bit). Next, in tpacgages tab, chekc packakge(s) you want to run. Than this should show up. 
+detach("package:learnPopGen", unload = TRUE)
+library(learnPopGen)
+
     # Copy-paste into your script - and run - an example from the reference manual for a function within this package related to a measure of genetic drift. 
+#Package called learnPopGen
+
+#Description This function simulates genetic drift at a biallelic genetic locus with no selection and no mutation in a sexually reproducing diploid population or set of populations. It is essentially redundant with drift.selection, but in which there is no difference in relative fitness among genotypes; however, it also allows the user to visualize heterozygosity or genetic variation through time- options that are not yet implemented in drift.selection.
+#Arguments p0 Ne nrep time show pause ... Starting frequency for the A allele. Effective population size. Number of replicate simulations. Total time, in number of generations, for the simulation. Various options for plotting. "p" shows the frequency of the A allele through time; "genotypes" creates an animated histogram with the frequencies of each of the three genotypes through time; "fixed" shows the fraction of populations that have fixed for each allele, a or A; "heterozygosity" plots the mean heterozygosity and the expected heterozygosity through time. The default is show="p". Pause betweengenerations. pause=0.01 (for instance) might smooth animation. optional arguments. In genetic.drift the optional arguments are presently: colors (a vector giving the colors to be used to graph the various simulations); and lwd. The plot method of the object class adds the optional argument type (e.g., "l" or "s".)
+#Value:
+#The function creates one of several possible plots, depending on the value of show. The function also invisibly returns an object of class "genetic.drift" that can be printed or replotted by the user using corresponding print and plot methods. (See examples.)
+#Author(s): Liam Revell <liam.revell@umb.edu>
+
+#Example
+
+## Not run: 
+genetic.drift() 
+object<-genetic.drift(p0=0.7,show="heterozygosity") 
+plot(object,show="genotypes") 
+## End(Not run)
+
+
         # Depending on the function, either upload a plot of the result or use print() and copy/paste the console output into your script.
+
+print()genetic.drift 
+object<-genetic.drift(p0=0.7,show="heterozygosity") 
+plot(object,show="genotypes"))
+  
     # After running the function example, manipulate a parameter within the function to create a new result. 
+    
+object<-genetic.drift(p0=0.475,show="fixed") 
+ 
         # Common options might be allele frequency, population size, fitness level, etc. 
         # Add the results of this manipulation to your script (if in the console) or upload the new plot.
+print(object<-genetic.drift(p0=0.475,show="fixed"))
        
           # By manipulating these parameters you can see how it impacts the results.
           # This type of manipulation is one example of how theoretical ecology and modelling are used to predict patterns in nature.
