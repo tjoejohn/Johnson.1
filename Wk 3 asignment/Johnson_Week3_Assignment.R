@@ -40,11 +40,10 @@ plot(object,show="genotypes")
 
         # Depending on the function, either upload a plot of the result or use print() and copy/paste the console output into your script.
 
-print(genetic.drift() 
+print(genetic.drift()) 
 object<-genetic.drift(p0=0.7,show="heterozygosity") 
-plot(object,show="genotypes"))
+plot(object,show="genotypes")
 
-###Won't run????'
 
     # After running the function example, manipulate a parameter within the function to create a new result. 
     
