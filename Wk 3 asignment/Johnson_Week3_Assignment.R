@@ -17,7 +17,7 @@
 library(learnPopGen)
 
 #2: Do Code
-install.packages(username/packagename)
+install.packages(username/packagename)# What is this for? Does not do anything we have discussed in class.
 #user name is github useres name. Package name is 
 
     # Copy-paste into your script - and run - an example from the reference manual for a function within this package related to a measure of genetic drift. 
@@ -56,7 +56,7 @@ print(object<-genetic.drift(p0=0.475,show="fixed"))
           # By manipulating these parameters you can see how it impacts the results.
           # This type of manipulation is one example of how theoretical ecology and modelling are used to predict patterns in nature.
 
-
+#Where is your export of the original plot from the example?
 
 ## (4) Using Google and ONLY packages from GitHub or CRAN:
     # Find a package that will generate standard diversity metrics for community ecology, specifically Simpson's Diversity Index.
@@ -64,7 +64,9 @@ print(object<-genetic.drift(p0=0.475,show="fixed"))
 #package called vegan . Follow same steps from (3) to install package. 
 
     # Copy-paste into your script - and run - an example from the reference manual for a function to calculate Simpson's diversity. 
+#where is your call to use the vegan package?
 
+# ??diversityresult --there is no function called diversity result...what do you think this line is doing?
 diversityresult(x, y = NULL, factor = NULL, level = NULL, 
                 index=c("Simpson"), 
                 method=c("pooled", "each site", "mean", "sd", "max", "jackknife"), 
@@ -89,8 +91,8 @@ plot(simp, pch = 17, col = "green")
 
 data(BCI, BCI.env)
 H <- diversity(BCI)
-invsimp <- diversity(BCI, "inv")
-plot(invsimp, pch = 7, col = "purple"
+invsimp <- diversity(BCI, "inv") #this is an example from the diversity help file which I explicitly said does NOT count in the directions.
+plot(invsimp, pch = 7, col = "purple"#This code is not complete - how did you get it to run?
         # Add the results of this manipulation to your script (if in the console) or upload the new plot.
      
      #Remember to Export plot as PDF, 7X4, Landscape!
@@ -98,5 +100,5 @@ plot(invsimp, pch = 7, col = "purple"
           # Diversity metrics are frequently used in community ecology for reasons ranging from a quick comparison between sites to understanding community stability.
           # Their calculation can be very tedious by hand - and very fast with a package designed for the operation.
 
-
+?diversity
 
