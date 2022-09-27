@@ -36,11 +36,11 @@ summary(Busch)
   # Which model is a better fit to explain the yield response, and WHY? (6 points)
   # Hint: Does one model seem more likely to be over-fitted?
 
-#I belive the data that yields Environment (the linear model I named "Kyle") is a better fit to explain the yield response. This is because the R squared value is larger (which means a stronger relationship) than linear model that yields genotype (the linear model named Busch). 
+#I belive the data that yields Environment (the linear model I named "Kyle") is a better fit to explain the yield response. This is because the R squared value (a measure of best fit) is larger (which means a stronger relationship) than the linear model that yields genotype (the linear model named Busch). 
 
 # Which environment would be your very WORST choice for generating a strong yield response? (2 points)
 
-#The environment that would be the worst for generating a strong yield response would be the environment that yields genotype. This is because the R squared value is small, and would not generate a strong yield repsonse. 
+#The environment that would be the worst for generating a strong yield response would be the ge_data$EnvSargodht environment. This is because the Pr(<|t|) value (which is basically a probability or p value) is much higher compared to the other environments, and therefore it would not generate a strong yield response. 
 
 #Always rember to set working directory!!!!!!!!
 setwd("C:/GitHub/Johnson.1/Wk 4 asignment")
