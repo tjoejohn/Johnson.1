@@ -2,10 +2,12 @@
   # give one explanation for why these data might be difficult to draw spatial inferences about genes.(3 points)
 
 #It's hard to draw spatial inferences about genes without knowing which points represent which groups because the net1 plot is a flowchart per say, and you can't determine the spacial inferences. 
+#This is not the Dryad dataset. There are no spatial data associated with the other data.
 
   # Part 2: Despite the drawbacks, give the result or interpretation that you feel most confident in (3 points), and EXPLAIN WHY (4 points).
 
 #Despite the drawbacks, I can compare data points on a relative scale. This is because I can infer that Seq24 and Seq16 are 10 points/dots away from each other as well as Seq5 and Seq16. All the other Seq points/dots are less than 10 points apart from each other.
+#Not the correct dataset.
 
 # For your scripting assignment we will use the "ge_data" data frame found in the "stability" package.
   # Install the "stability" package, load it into your R environment, and use the data() function to load the "ge_data". (2 points)
@@ -16,8 +18,8 @@
 #You must do this so you can run the package. It worked if > library(stability) comes up in the code window. 
 #Now to load the specific data frame you want to work with use this code:
 data(ge_data)
-
-
+#instead of several clicks in the bottom right window you could simply use the library function.
+#
 # Create two linear models for Yield Response: one related to the Environment and one to the Genotype. (2 points each)
   # 'Yield Response' in this dataset is a measure of phenotype expression.
   # Hint: Look at the help file for this dataset.
@@ -37,6 +39,7 @@ summary(Busch)
   # Hint: Does one model seem more likely to be over-fitted?
 
 #I belive the data that yields Environment (the linear model I named "Kyle") is a better fit to explain the yield response. This is because the R squared value (a measure of best fit) is larger (which means a stronger relationship) than the linear model that yields genotype (the linear model named Busch). 
+#What does "yields environment" mean? This is only half the answer - the other model is also over-fitted. Sometimes a higher R-squared is not always better.
 
 # Which environment would be your very WORST choice for generating a strong yield response? (2 points)
 
@@ -45,3 +48,4 @@ summary(Busch)
 #Always rember to set working directory!!!!!!!!
 setwd("C:/GitHub/Johnson.1/Wk 4 asignment")
 getwd()
+#I would suggest putting this at the top rather than the bottom of your script.
