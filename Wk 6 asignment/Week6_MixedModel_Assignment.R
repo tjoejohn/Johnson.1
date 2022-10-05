@@ -8,9 +8,18 @@ library(MASS)
 library(MuMIn)
 library(mgcv)
 
-data <- read.csv("Week6_MixedModel_Assignment.R", header=TRUE)
+#Make sure all packages are installed and running!
+
+data <- read.csv("Toscano_Griffen_Data.csv")
 
 # First create models with the same (y) and method (GLMM) as the published paper, using the GLMM function from the tutorial. 
+
+#first do summary of data and look at paper to determine Y axis
+summary(data)
+
+glmm.mod2 <- glmmPQL(eaten~Object + Area, family = gaussian, random = ~ 1 | ID, data = df)
+
+
   #Create two different models using the same 3 predictor (x) variables from the dataset. (4 points each) 
     # In one model only include additive effects.
     # In the other model include one interactive effect.
