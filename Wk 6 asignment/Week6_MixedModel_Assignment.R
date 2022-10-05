@@ -1,5 +1,4 @@
 setwd("C:/GitHub/Johnson.1/Wk 6 asignment")
-getwd()
 
 
 # Read in the "Toscano_Griffen_Data.csv" data from GitHub and load the three packages we used in the tutorial this week.
