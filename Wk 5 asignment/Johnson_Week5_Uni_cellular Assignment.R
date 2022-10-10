@@ -11,6 +11,8 @@
 # Based on these observations of your strain distributions, why did the authors use a Kruskal-Wallis test rather than ANOVA to compare the strains? (2 pts)
 
 #Although anova test can be used to compare more than two sample means, one of the KEY assumptions of the anova test is that all the data have to be normally distributed. This data is NOT normally/evenly distributed, so the authors used the Kruskal-Wallis test instead. This test can compare more than two sample means that ARE NOT nomrmally/evenly distributed   
+#It compares the medians or ranks, not the truly the means.
+
 
 #first, have to make sure the following packages are installed and running/box is checked!
 library(fitdistrplus)
@@ -62,11 +64,12 @@ gofstat(list(fit.logis2, fit.pois2, fit.nbinom2))
 
 #For the number of cells of progeny, the 3-mile-nbinom is the best fit since it has the lowest AIC score out of all the distributions. 
 #For the replication time, 3-mile-nbinom is also the best fit since it again has the lowest AIC score out of all the distributions. 
-
+#3 is the column number and mle (not mile) refers to maximum likelihood. The distribution is negative binomial.
 
 # Plot a generic histogram for the replication time (data$RepTime.sec) (2 pt)
 
 hist(data$RepTime.sec, xlab = "Repetition Time", main= "Cell Replication")
+
 
 # Based on the patterns of this histograms and Figure 4:
   #Give one hypothesis for an evolutionary process represented by the two tallest bars in your histogram. (6 pts)
@@ -74,9 +77,7 @@ hist(data$RepTime.sec, xlab = "Repetition Time", main= "Cell Replication")
     # This hypothesis does not need to be correct - it only needs to be ecologically rational based these two figures.
 
 #My hypothesis is that the first tallest bar at around 50,000 repetition time was the first group to have genetics that allowed them to replicate at a high frequency. Although, the environment changed after causing the bars after 50,000 to decrease in frequency. After the environment stabilized around 150,000, the 200,000 group (second tallest bar) found success again and were also able to replicate at a high frequency. 
-
-
-
+#you have two different definitions of the time in your hypothesis that do not make sense together.
 
 
 
