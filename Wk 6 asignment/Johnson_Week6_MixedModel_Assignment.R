@@ -32,7 +32,7 @@ glmm.mod <- glmmPQL(activity.level~eaten, family = binomial, random = ~ 1 | bloc
 
 #Example to go off of 
 glmm.mod <- glmmPQL(Flight.initiation.distance..FID.~Object, family = gaussian, random = ~ 1 | ID, data = df)
-#Actulay run this one!
+#Actuality run this one!
 glmm.mod1 <- glmmPQL(activity.level~toadfish.cue.treatment+claw.width+carapace.width, family = binomial, random = ~ 1 | block, data = data)
 
 
@@ -50,7 +50,7 @@ data$prop.cons <- data$eaten/data$prey
 
 # (Q2) - Did the interactive effect change which variables predict proportional consumption? How, specifically, did the results change? (5 pts)
 
-#Yes, the interactive effect did change which variables predict proportional consumption. By adding an interactive effect, the model with the interactive effect(glmm.mod2) had a higher R squared R squared compared to my model with only additive effects (glmm.mod1, which had a lower R squared. 
+#Yes, the interactive effect did change which variables predict proportional consumption. By adding an interactive effect, the model with the interactive effect(glmm.mod2) had a higher R squared compared to my model with only additive effects (glmm.mod1, which had a lower R squared. 
   
 # (Q3) - Plot the residuals of both models. Do you think either model is a good fit? Why or why not? (3 pts)
 plot(glmm.mod1)
@@ -60,7 +60,6 @@ r.squaredGLMM(glmm.mod1)
 r.squaredGLMM(glmm.mod2)
 
 #Based on the residuals of both models, I believe that my model (glmm.mod2) is a better fit because it has a higher R squared value than my (glmm.mod2) model. 
-# On the other hand, I'm not sure if either of the models are a good fit because there is only a difference of about 2 in the Aic score and .001 in both the R squared values. 
 
 
 # Re-run both models as generalized additive models instead (using gam). Then compare the AIC of both models. (4 points each)
@@ -78,8 +77,7 @@ AIC(gam.mod1, gam.mod2)
 plot(gam.mod1$residuals)
 plot(gam.mod2$residuals)
 
-#Not that confident, because the residual data for both of my gernealized additive models is quite scattered and does not show a clear trend in the data.  
-
+#I am confident in my results, because the residual data for both of my generalized additive models is quite similar and there is not a clear trend, which is a goof thing in this case. 
 
 
 
