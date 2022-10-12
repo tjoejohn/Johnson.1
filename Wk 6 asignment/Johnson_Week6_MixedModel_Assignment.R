@@ -51,7 +51,10 @@ data$prop.cons <- data$eaten/data$prey
 # (Q2) - Did the interactive effect change which variables predict proportional consumption? How, specifically, did the results change? (5 pts)
 
 #Yes, the interactive effect did change which variables predict proportional consumption. By adding an interactive effect, the model with the interactive effect(glmm.mod2) had a higher R squared compared to my model with only additive effects (glmm.mod1, which had a lower R squared. 
-  
+summary(glmm.mod1)
+summary(glmm.mod2)
+#If you look at the summary output, adding the interactive effect actually didn't help. The same variables are significant and the interaction is not...so the very tiny increase in R squared is a result of over-fitting.
+
 # (Q3) - Plot the residuals of both models. Do you think either model is a good fit? Why or why not? (3 pts)
 plot(glmm.mod1)
 plot(glmm.mod2)
@@ -60,7 +63,7 @@ r.squaredGLMM(glmm.mod1)
 r.squaredGLMM(glmm.mod2)
 
 #Based on the residuals of both models, I believe that my model (glmm.mod2) is a better fit because it has a higher R squared value than my (glmm.mod2) model. 
-
+#This does not answer the question - residuals are not related to R squared this way.
 
 # Re-run both models as generalized additive models instead (using gam). Then compare the AIC of both models. (4 points each)
 gam.mod1 <- gam(activity.level~toadfish.cue.treatment+claw.width+carapace.width, family = binomial, random = list(ID=~ block), data = data)
