@@ -1,9 +1,14 @@
+setwd("C:/GitHub/Johnson.1/Wk 7 asignment")
 # Load the "anytime" and "ggplot2" packages to complete this week's assignment.
+#Make sure to install both packages and make sure there running/checked off uner packages section. 
 
 # Read the "Plankton_move_average" CSV in from GitHub. 
 # These are data from the Great Lakes Environmental Research Laboratory plankton sampling.
 
-#Used the following lines to format the date and remove NAs from the dataset:(plot populations of species??)
+data <- read.csv("Plankton_move_average.csv")
+
+#Used the following lines to format the date and remove NAs from the dataset:
+#(plot populations of species??)
 data$Date <- as.Date(data$Date, origin = "0001-01-01") # Setting values to "day zero".
 data <- na.omit(data)
 
@@ -19,7 +24,12 @@ ggplot(data)  +
 # Export this plot to have on hand for reference in the next section of the assignment (and upload with your script).
 
 # (1) - Which species is most likely to be r-selected prey and which its primary predator? (2 pts)
+
+#The species that is most likely to be r-selected as prey is the D.mendotae(aka Daphnia) and it's primary predator is the Bythotrephes. 
+
 # What is one relationship the third species MIGHT have to the first two? (2 pts)
+#This m ight make mor sense after Thursdays (10/13/22) class. 
+#The Third species (Limnocalanus seems to have some type of influence on the first two species. Although the peks in the plot are not the same density, all the peaks of each species are at a very similar time. This likely means some conditon is occuring that is causeing them all to trhve in there envrionment.
 
 #Now copy/paste in the Lotka-Volterra function, plotting script, and load the "deSolve" package from the tutorial:
 
