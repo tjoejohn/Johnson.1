@@ -28,7 +28,7 @@ ggplot(data)  +
 #The species that is most likely to be r-selected as prey is the D.mendotae(aka Daphnia) and it's primary predator is the Bythotrephes. 
 
 # What is one relationship the third species MIGHT have to the first two? (2 pts)
-#This m ight make mor sense after Thursdays (10/13/22) class. 
+#This might make more sense after Thursdays (10/13/22) class. 
 #The Third species (Limnocalanus seems to have some type of influence on the first two species. Although the peks in the plot are not the same density, all the peaks of each species are at a very similar time. This likely means some conditon is occuring that is causeing them all to trhve in there envrionment.
 
 #Now copy/paste in the Lotka-Volterra function, plotting script, and load the "deSolve" package from the tutorial:
