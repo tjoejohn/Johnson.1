@@ -95,14 +95,18 @@ legend("topright", c("Limncalanus", "D.mendotae"), lty = c(1,2), col = c(1,2), b
 
 # What are the changes you've made to alpha, beta, gamma, and delta from the default values; and what do they say in a relative sense about the plankton data? (4 pts)
 
-*****Fix bellow!#I changed alpha from 2 to 3. This increases or decreases the number of peaks in the population over time. 
-#I changed beta from 0.5 to 0.3. Beta increases prey population (Daphnia mendotae while grdualy decreasing the predator population over time.
-#Gamma I left the same (0.2).
-#I changed delta from .6 to .8
-#****** What they say about the plankton data is
+*****Fix bellow!#I changed alpha from 2 to 3. Alpha is the rate of population growth. 
+#I changed beta from 0.5 to 0.3. Beta is a rate of prey (Daphnia mendotae) predation
+#Gamma I left the same (0.2). Gamma is the rate of prey consumption = population stability. 
+#I changed delta from .6 to .8 Delta is the rate of prey consumption = predator die off.
+  
+#****** Theses changes in the 4 variables say a lot about the plankton data. The rate of population growth has increased. The rate of predation has decreased. Rate of prey consumption equaling population stability has stayed the same. Rate of prey consumption equaling predator die off has increased. 
 
 
 # Are there other paramenter changes that could have created the same end result? (2 pts)
+  
+#yes, there are lots of other parameter changes that could have gotten you the same, if not a similar end result. 
+  
 # Export your final L-V plot with a legend that includes the appropriate genus and/or species name as if the model results were the real plankton data, 
 # and upload with your script. (hint - remember which one is the predator and which is the prey)
 
