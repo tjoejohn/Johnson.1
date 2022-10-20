@@ -79,34 +79,34 @@ LotVmod <- function (Time, State, Pars) {
   })
 }
 
-#Because this is not part of a package, we should spend a little more time exploring the variables to understand what each represents.
 
-Pars <- c(alpha = 2, beta = 0.5, gamma = .2, delta = .6) #This is the line we will change
-State <- c(x = 10, y = 10)#For now keep this the same.
-Time <- seq(0, 100, by = 1)#For now keep this the same.
-out <- as.data.frame(ode(func = LotVmod, y = State, parms = Pars, times = Time)) #This is the operation that creates the Lotka-Volterra model based on our specified parameters.
-
-#The next two lines plot the model with the predator and prey against each other.
 Pars <- c(alpha = 3, beta = 0.8, gamma = .2, delta = .8)
-
+out <- as.data.frame(ode(func = LotVmod, y = State, parms = Pars, times = Time)) #This is the operation that creates the Lotka-Volterra model based on our specified parameters.
 
 matplot(out[,-1], type = "l", xlab = "time", ylab = "population")
 legend("topright", c("Limncalanus", "D.mendotae"), lty = c(1,2), col = c(1,2), box.lwd = 0)
 
 # What are the changes you've made to alpha, beta, gamma, and delta from the default values; and what do they say in a relative sense about the plankton data? (4 pts)
 
-*****Fix bellow!#I changed alpha from 2 to 3. Alpha is the rate of population growth. 
-#I changed beta from 0.5 to 0.3. Beta is a rate of prey (Daphnia mendotae) predation
+#I changed alpha from 2 to 3. Alpha is the rate of population growth. 
+#I changed beta from 0.5 to 0.8. Beta is a rate of prey (Daphnia mendotae) predation
 #Gamma I left the same (0.2). Gamma is the rate of prey consumption = population stability. 
 #I changed delta from .6 to .8 Delta is the rate of prey consumption = predator die off.
   
-#****** Theses changes in the 4 variables say a lot about the plankton data. The rate of population growth has increased, so some condition is causing the population to grow at a faster rate. The rate of predation has decreased, so the preadtor became more effective. Rate of prey consumption equaling population stability has stayed the same. Rate of prey consumption equaling predator die off has increase, so both the coefficients have increased, but they give different effects. 
+#Theses changes in the 4 variables say a lot about the plankton data. The rate of population growth has increased, so some condition is causing the population to grow at a faster rate. The rate of predation has decreased, so the preadtor became more effective. Rate of prey consumption equaling population stability has stayed the same. Rate of prey consumption equaling predator die off has increase, so both the coefficients have increased, but they give different effects. 
 
 
 # Are there other paramenter changes that could have created the same end result? (2 pts)
   
-#Yes, there are lots of other parameter changes that could have gotten you the same, if not a similar end results. For example, if you increase beta (rate of predation), and alpha (the rate of population growth), the overall number of prey will increase. The prey (D.mendotae), is already pretty high in the plankton data plot. 
-  
+#Yes, there are other parameter changes that could have gotten you the same, if not a similar end result. For example, if you increase gamma slightly and decrease delta slightly, and leave alpha and beta the same as the default numbers gived/used in tutorial, this will give you the same, if not a similar result to what the first parameter changes I made in the beginning of question 3.
+
+Pars <- c(alpha = 2, beta = 0.5, gamma = .3, delta = .5)
+out <- as.data.frame(ode(func = LotVmod, y = State, parms = Pars, times = Time)) #This is the operation that creates the Lotka-Volterra model based on our specified parameters.
+
+matplot(out[,-1], type = "l", xlab = "time", ylab = "population")
+legend("topright", c("Limncalanus", "D.mendotae"), lty = c(1,2), col = c(1,2), box.lwd = 0)
+
+
 # Export your final L-V plot with a legend that includes the appropriate genus and/or species name as if the model results were the real plankton data, 
 # and upload with your script. (hint - remember which one is the predator and which is the prey)
 
