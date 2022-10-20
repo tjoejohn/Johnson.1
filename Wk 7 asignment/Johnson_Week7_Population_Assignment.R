@@ -93,12 +93,12 @@ legend("topright", c("Limncalanus", "D.mendotae"), lty = c(1,2), col = c(1,2), b
 #Gamma I left the same (0.2). Gamma is the rate of prey consumption = population stability. 
 #I changed delta from .6 to .8 Delta is the rate of prey consumption = predator die off.
   
-#Theses changes in the 4 variables say a lot about the plankton data. The rate of population growth has increased, so some condition is causing the population to grow at a faster rate. The rate of predation has decreased, so the preadtor became more effective. Rate of prey consumption equaling population stability has stayed the same. Rate of prey consumption equaling predator die off has increase, so both the coefficients have increased, but they give different effects. 
+#Theses changes in the 4 variables say a lot about the plankton data. The rate of population growth has increased, so some condition is causing the planktonn population to grow at a faster rate. The rate of predation has decreased, so the preadtor became more effective. Rate of prey consumption equaling population stability has stayed the same. Rate of prey consumption equaling predator die off has increase, so both the coefficients have increased, but they give different effects. 
 
 
 # Are there other paramenter changes that could have created the same end result? (2 pts)
   
-#Yes, there are other parameter changes that could have gotten you the same, if not a similar end result. For example, if you increase gamma slightly and decrease delta slightly, and leave alpha and beta the same as the default numbers gived/used in tutorial, this will give you the same, if not a similar result to what the first parameter changes I made in the beginning of question 3.
+#Yes, there are other parameter changes that could have gotten you the same, if not a similar end result. For example, if you increase gamma slightly and decrease delta slightly, and leave alpha and beta the same as the default numbers given/used in line 109 if the tutorial, this will give you the same, if not a similar result to what the first parameter changes I made in the beginning of question 3.
 
 Pars <- c(alpha = 2, beta = 0.5, gamma = .3, delta = .5)
 out <- as.data.frame(ode(func = LotVmod, y = State, parms = Pars, times = Time)) #This is the operation that creates the Lotka-Volterra model based on our specified parameters.
