@@ -21,6 +21,7 @@ ggplot(data)  +
   theme_bw() 
 
 # Export this plot to have on hand for reference in the next section of the assignment (and upload with your script).
+#Where is the plot?
 
 # (1) - Which species is most likely to be r-selected prey and which its primary predator? (2 pts)
 
@@ -29,6 +30,7 @@ ggplot(data)  +
 # What is one relationship the third species MIGHT have to the first two? (2 pts)
 
 #The Third species (Limnocalanus) seems to have some type of influence on the first two species. Although the peaks in the plot are not the same density, all the peaks of each species occur at a very similar time. This likely means some condition is occurring that is causing them all to thrive in there environment. This condition could be an increase in food (phytolankton) within the three species environment (all three of these species are Zooplankton which feed on phytoplankton). More food allows the three species to repdocue quicker, therefore increasing population density. 
+#This answer is more about the relationship to the environment than the other species.
 
 #Now copy/paste in the Lotka-Volterra function, plotting script, and load the "deSolve" package from the tutorial:
 
@@ -85,7 +87,7 @@ out <- as.data.frame(ode(func = LotVmod, y = State, parms = Pars, times = Time))
 
 matplot(out[,-1], type = "l", xlab = "time", ylab = "population")
 legend("topright", c("Limncalanus", "D.mendotae"), lty = c(1,2), col = c(1,2), box.lwd = 0)
-
+#Why do you have Limncalanus as the predator? You said it was Bythotrephes in your answer above.
 # What are the changes you've made to alpha, beta, gamma, and delta from the default values; and what do they say in a relative sense about the plankton data? (4 pts)
 
 #I changed alpha from 2 to 3. Alpha is the rate of population growth. 
@@ -94,7 +96,7 @@ legend("topright", c("Limncalanus", "D.mendotae"), lty = c(1,2), col = c(1,2), b
 #I changed delta from .6 to .8 Delta is the rate of prey consumption = predator die off.
   
 #Theses changes in the 4 variables say a lot about the plankton data. The rate of population growth has increased, so some condition is causing the planktonn population to grow at a faster rate. The rate of predation has decreased, so the preadtor became more effective. Rate of prey consumption equaling population stability has stayed the same. Rate of prey consumption equaling predator die off has increase, so both the coefficients have increased, but they give different effects. 
-
+#Did rate of predation increase or decrease? You contradict yourself in the answer.
 
 # Are there other paramenter changes that could have created the same end result? (2 pts)
   
