@@ -40,6 +40,17 @@ vegitation.means <- aggregate(x = vegitation, by = list(vegitation$names), FUN =
 
 invert.means <- aggregate(x = invert, by = list(invert$names), FUN = "mean")
 
+#Remove NA columns 
+invert.means1 <- invert.means[,-73] 
+head(invert.means1)
+invert.means2 <- invert.means1[,-1:-3]
+head(invert.means2)
+# Make sure everything is numeric.
+invert.means2 <- sapply(invert.means2, as.numeric ) 
+#Make sure everything is in the right format!
+invert.means2 <- as.data.frame(invert.means2) 
+
+#Do same thing again, except for vegetation!
 
 # (Q2 - 12 pts) Then use the dataset from the tutorial to create a linear model related to your RDA. Try multiple predictors to find the best fit model.
   # Explain the ecological importance of the significant predictors, or lack of significant predictors.
