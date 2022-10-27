@@ -40,33 +40,36 @@ abiotic.means <- aggregate(x = abiotic, by = list(abiotic$names), FUN = "mean")
 
 invert.means <- aggregate(x = invert, by = list(invert$names), FUN = "mean")
 
-#Remove NA columns for abiotic 
+#Since there is not the same number of rows, must merge both abiotic and invert!
+fix.issue <- merge(abiotic.means, invert.means, by = "Group.1", all = FALSE)
+#Now that there merged, have to unmerge.
+
+abiotic.unmerged <- fix.issue[,7:15]
+invert.unmerged <- fix.issue[,19:87]
 
 
-abiotic.means1 <- abiotic.means[,-16] # NA column
-abiotic.means2 <- abiotic.means1[,-1:-6] # Plot and NA columns
-abiotic.means2 <- sapply(abiotic.means2, as.numeric ) # Make sure everything is numeric.
+head(abiotic.unmerged)
+head(invert.unmerged)
+
+#Already removed NA collumns when unmerged, so now we just have to make the abitoic factors as numeric and in the right format.
+
+abiotic.means1 <- abiotic.unmerged # Plot and NA columns
+abiotic.means2 <- sapply(abiotic.means1, as.numeric ) # Make sure everything is numeric.
 abiotic.means2 <- as.data.frame(abiotic.means2) # Make sure it's in the right format.
 
-
-
+head(abiotic.means2)
 #Do same thing again, except for invertebrate!
-head(invert.means)
 
-invert.means1 <- invert.means[,-73] 
-head(invert.means1)
-invert.means2 <- invert.means1[,-1:-3]
+invert.means1 <- invert.unmerged # Plot and NA columns
+invert.means2 <- sapply(invert.means1, as.numeric ) # Make sure everything is numeric.
+invert.means2 <- as.data.frame(invert.means2) # Make sure it's in the right format.
+
 head(invert.means2)
-# Make sure everything is numeric.
-invert.means2 <- sapply(invert.means2, as.numeric ) 
-#Make sure everything is in the right format!
-invert.means2 <- as.data.frame(invert.means2) 
 
 
-#Install/read in this package and compare against vegetation transects (abiotic) against invertebrate communities (biotic) 
+#Install/read in this package and compare abiotic factors (abiotic) against invertebrate communities (biotic) 
 library(vegan)
 
-fix.issue <- merge(abiotic.means2, invert.means2, by = "Group.1", all= FALSE)
 
 colnames(abiotic.means2)
 ord <- rda(invert.means2 ~ pH + totalN + Perc_ash + Kalium + Magnesium + Ca + Al + TotalP + OlsenP, abiotic.means2)
