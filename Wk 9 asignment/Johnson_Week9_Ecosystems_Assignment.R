@@ -70,9 +70,28 @@ head(invert.means2)
 #Install/read in this package and compare abiotic factors (abiotic) against invertebrate communities (biotic) 
 library(vegan)
 
+colnames(abiotic.means2)
+ord <- rda(invert.means2 ~ Al, abiotic.means2)
+ord
 
 colnames(abiotic.means2)
 ord <- rda(invert.means2 ~ pH + totalN + Perc_ash + Kalium + Magnesium + Ca + Al + TotalP + OlsenP, abiotic.means2)
+ord
+
+anova(ord)
+
+#P value is not significant, or not even given in this case, so need to take stepts further to remove predictors that are not important one at a time!
+
+plot(ord, ylim = c(-2,2), xlim = c(-5,5))
+
+ord <- rda(invert.means2 ~., abiotic.means2) # shorthand for the model that includes everything.
+ord.int <- rda(invert.means2 ~1, abiotic.means2)
+
+step.mod <- ordistep(ord.int, scope = formula(ord), selection = "both")
+step.mod$anova
+
+step.R2mod <- ordiR2step(ord.int, scope = formula(ord), selection = "forward")
+
 
 # (Q2 - 12 pts) Then use the dataset from the tutorial to create a linear model related to your RDA. Try multiple predictors to find the best fit model.
   # Explain the ecological importance of the significant predictors, or lack of significant predictors.
