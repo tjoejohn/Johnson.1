@@ -79,6 +79,10 @@ ord <- rda(invert.means2 ~ pH + totalN + Perc_ash + Kalium + Magnesium + Ca + Al
 ord
 
 colnames(abiotic.means2)
+ord <- rda(invert.means2 ~ pH + totalN + Perc_ash + Kalium + Magnesium + Ca + Al, abiotic.means2)
+ord
+
+colnames(abiotic.means2)
 ord <- rda(invert.means2 ~ pH + totalN + Perc_ash + Kalium, abiotic.means2)
 ord
 
@@ -100,6 +104,9 @@ step.R2mod <- ordiR2step(ord.int, scope = formula(ord), selection = "forward")
 #(Q2 - 12 pts) Then use the dataset from the tutorial to create a linear model related to your RDA. Try multiple predictors to find the best fit model.
   # Explain the ecological importance of the significant predictors, or lack of significant predictors.
 
+
+#******* (FIX ONECE Q1 ISSUE IS FIXED) It seems that Nitrogen has the best the best influencer of the invertebrate community. 
+#The data (abitoic.means2) is already merged with the data (invert.means2) from question 1. 
 
 #ZZZZZZZZZZZZZZZZZ ************* DELETE?
 data_experiment_urtica.tibble <- read_excel("Penaetal_2016_data.xlsx", sheet = "Data_experiment_urtica")
