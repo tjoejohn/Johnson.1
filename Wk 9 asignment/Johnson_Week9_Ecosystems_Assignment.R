@@ -119,7 +119,7 @@ data.experiment <- merge(abiotic.means, data.experiment, by = "Parcel")
 View(data.experiment)
 
 
-#Install these packages to do a distribution of our y (Vitrina_pellucida)
+#Install these packages to do a distribution of our y (Length_main_stem)
 library(fitdistrplus)
 library(logspline)
 
