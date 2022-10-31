@@ -70,21 +70,9 @@ head(invert.means2)
 #Install/read in this package and compare abiotic factors (abiotic) against invertebrate communities (biotic) 
 library(vegan)
 
-colnames(abiotic.means2)
-ord <- rda(invert.means2 ~ Al, abiotic.means2)
-ord
-
 #This one worked!
 colnames(abiotic.means2)
 ord <- rda(invert.means2 ~ pH + totalN + Perc_ash + Kalium + Magnesium + Ca + Al, abiotic.means2)
-ord
-
-colnames(abiotic.means2)
-ord <- rda(invert.means2 ~ pH + totalN + Perc_ash, abiotic.means2)
-ord
-
-colnames(abiotic.means2)
-ord <- rda(invert.means2 ~ pH + totalN + Perc_ash + Kalium, abiotic.means2)
 ord
 
 anova(ord)
@@ -101,7 +89,14 @@ step.mod$anova
 
 step.R2mod <- ordiR2step(ord.int, scope = formula(ord), selection = "forward")
 
-#Aluminum *****(and maybe calcium) is mainly predicting the community 
+#Aluminum *****(and maybe calcium) is mainly predicting the community, so re run it only looking at Aluminum
+
+ord2 <- rda(invert.means2 ~ Al, abiotic.means2)
+ord2
+anova(ord2)
+plot(ord2)
+
+#To answer this question,
 
 #(Q2 - 12 pts) Then use the dataset from the tutorial to create a linear model related to your RDA. Try multiple predictors to find the best fit model.
   # Explain the ecological importance of the significant predictors, or lack of significant predictors.
