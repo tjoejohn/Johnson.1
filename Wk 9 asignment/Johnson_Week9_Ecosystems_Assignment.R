@@ -100,9 +100,6 @@ step.R2mod <- ordiR2step(ord.int, scope = formula(ord), selection = "forward")
 #(Q2 - 12 pts) Then use the dataset from the tutorial to create a linear model related to your RDA. Try multiple predictors to find the best fit model.
   # Explain the ecological importance of the significant predictors, or lack of significant predictors.
 
-#Since we are trying to make a linear model related to our rda, I will still be using antibiotic facorts and the invertibrate communnity. 
-#******* (FIX ONECE Q1 ISSUE IS FIXED) It seems that Nitrogen has the best the best influencer of the invertebrate community. 
-#The data (abitoic.means2) is already merged with the data (invert.means2) from question 1. 
 
 #ZZZZZZZZZZZZZZZZZ ************* DELETE?
 data_experiment_urtica.tibble <- read_excel("Penaetal_2016_data.xlsx", sheet = "Data_experiment_urtica")
