@@ -78,9 +78,13 @@ colnames(abiotic.means2)
 ord <- rda(invert.means2 ~ pH + totalN + Perc_ash + Kalium + Magnesium + Ca + Al + TotalP + OlsenP, abiotic.means2)
 ord
 
+colnames(abiotic.means2)
+ord <- rda(invert.means2 ~ pH + totalN + Perc_ash + Kalium, abiotic.means2)
+ord
+
 anova(ord)
 
-#P value is not significant, or not even given in this case, so need to take stepts further to remove predictors that are not important one at a time!
+#P value is not significant, or not even given in this case, so need to take steps further to remove predictors that are not important one at a time!
 
 plot(ord, ylim = c(-2,2), xlim = c(-5,5))
 
@@ -93,8 +97,55 @@ step.mod$anova
 step.R2mod <- ordiR2step(ord.int, scope = formula(ord), selection = "forward")
 
 
-# (Q2 - 12 pts) Then use the dataset from the tutorial to create a linear model related to your RDA. Try multiple predictors to find the best fit model.
+#(Q2 - 12 pts) Then use the dataset from the tutorial to create a linear model related to your RDA. Try multiple predictors to find the best fit model.
   # Explain the ecological importance of the significant predictors, or lack of significant predictors.
+
+#Since we are trying to make a linear model related to our rda, I will still be using antibiotic facorts and the invertibrate communnity. 
+#******* (FIX ONECE Q1 ISSUE IS FIXED) It seems that Nitrogen has the best the best influencer of the invertebrate community. 
+#The data (abitoic.means2) is already merged with the data (invert.means2) from question 1. 
+
+#ZZZZZZZZZZZZZZZZZ ************* DELETE?
+data_experiment_urtica.tibble <- read_excel("Penaetal_2016_data.xlsx", sheet = "Data_experiment_urtica")
+data.experiment <- as.data.frame(data_experiment_urtica.tibble)
+
+#Then create a column called "Parcel" that allows us to merge with the plants data frame based on Parcel numbers.
+abiotic.means$Parcel <- unique(abiotic$Parcel)
+
+# So instead of megrring both by group.1 like before, now we merge by "Parcel" and accept all other defaults.
+data.experiment <- merge(abiotic.means, data.experiment, by = "Parcel")
+
+# Let's take a quick look at our data.
+# This data frame is getting large enough that View() might be more helpful than head() for an initial look:
+View(data.experiment)
+
+
+#Install these packages to do a distribution of our y (Vitrina_pellucida)
+library(fitdistrplus)
+library(logspline)
+
+
+#Plot distribution against ideals
+##fit all possible/likely distribution models and check AIC/BIC
+fit.weibull <- fitdist(data.experiment$Length_main_stem, distr = "weibull")
+fit.norm <- fitdist(data.experiment$Length_main_stem, distr = "norm")
+fit.gamma <- fitdist(data.experiment$Length_main_stem, distr = "gamma")
+fit.lnorm <- fitdist(data.experiment$Length_main_stem, distr = "lnorm")
+fit.nbinom <- fitdist(data.experiment$Length_main_stem, distr = "nbinom")
+fit.logis <- fitdist(data.experiment$Length_main_stem, distr = "logis")
+fit.geom <- fitdist(data.experiment$Length_main_stem, distr = "geom")
+
+*******#For some reason fit.nbinom and fit.geom wont run?????:
+#Error in fitdist(abiotic.invert$totalN, distr = "geom") : 
+  #the function mle failed to estimate the parameters, 
+                #with the error code 100
+
+#Use AIC comparisons of distributions to see which is best:
+#call from:
+gofstat(list(fit.weibull, fit.norm, fit.gamma, 
+             fit.lnorm, fit.logis))
+#Weibell or logis is the best fit?????
+colnames(data.experiment)
+
 
 # (Q3 - 6 pts) Provide a 3-4 sentence synthesis of how these results relate to one another and the value of considering both together for interpreting biotic-abiotic interactions.
 
