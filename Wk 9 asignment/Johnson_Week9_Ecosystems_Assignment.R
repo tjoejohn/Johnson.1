@@ -44,7 +44,7 @@ invert.means <- aggregate(x = invert, by = list(invert$names), FUN = "mean")
 fix.issue <- merge(abiotic.means, invert.means, by = "Group.1", all = FALSE)
 #Now that there merged, have to unmerge.
 
-abiotic.unmerged <- fix.issue[,7:15]
+abiotic.unmerged <- fix.issue[,7:13]
 invert.unmerged <- fix.issue[,19:87]
 
 
@@ -74,12 +74,13 @@ colnames(abiotic.means2)
 ord <- rda(invert.means2 ~ Al, abiotic.means2)
 ord
 
+#This one worked!
 colnames(abiotic.means2)
-ord <- rda(invert.means2 ~ pH + totalN + Perc_ash + Kalium + Magnesium + Ca + Al + TotalP + OlsenP, abiotic.means2)
+ord <- rda(invert.means2 ~ pH + totalN + Perc_ash + Kalium + Magnesium + Ca + Al, abiotic.means2)
 ord
 
 colnames(abiotic.means2)
-ord <- rda(invert.means2 ~ pH + totalN + Perc_ash + Kalium + Magnesium + Ca + Al, abiotic.means2)
+ord <- rda(invert.means2 ~ pH + totalN + Perc_ash, abiotic.means2)
 ord
 
 colnames(abiotic.means2)
@@ -150,7 +151,7 @@ gofstat(list(fit.weibull, fit.norm, fit.gamma,
 #Weibell is the best fit?????
 colnames(data.experiment)
 
-mod1 <- lm(length_main_stem ~ pH + totalN + Kalium + Magnesium + Ca + Al + TotalP + Land_use + Biomass, data.experiment)
+mod1 <- lm(Length_main_stem ~ pH + totalN + Kalium + Magnesium + Ca + Al + TotalP + Land_use + Biomass, data.experiment)
 summary(mod1)
 anova(mod1)
 AIC(mod1)
