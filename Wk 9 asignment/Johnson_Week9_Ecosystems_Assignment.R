@@ -101,6 +101,7 @@ step.mod$anova
 
 step.R2mod <- ordiR2step(ord.int, scope = formula(ord), selection = "forward")
 
+#Aluminum *****(and maybe calcium) is mainly predicting the community 
 
 #(Q2 - 12 pts) Then use the dataset from the tutorial to create a linear model related to your RDA. Try multiple predictors to find the best fit model.
   # Explain the ecological importance of the significant predictors, or lack of significant predictors.
