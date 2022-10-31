@@ -147,8 +147,13 @@ fit.geom <- fitdist(data.experiment$Length_main_stem, distr = "geom")
 #call from:
 gofstat(list(fit.weibull, fit.norm, fit.gamma, 
              fit.lnorm, fit.logis))
-#Weibell or logis is the best fit?????
+#Weibell is the best fit?????
 colnames(data.experiment)
+
+mod1 <- lm(length_main_stem ~ pH + totalN + Kalium + Magnesium + Ca + Al + TotalP + Land_use + Biomass, data.experiment)
+summary(mod1)
+anova(mod1)
+AIC(mod1)
 
 
 # (Q3 - 6 pts) Provide a 3-4 sentence synthesis of how these results relate to one another and the value of considering both together for interpreting biotic-abiotic interactions.
