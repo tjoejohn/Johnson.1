@@ -96,45 +96,26 @@ ord2
 anova(ord2)
 plot(ord2)
 
-#Question 1 answer: Even after removing a couple of non significant predictors from my abiotic factors data frame, none of the predictors p values were statistically significant. Even though none of my predictor variables from the abiotic factors were significant, each predictor variable plays a specific role in the invertebrate community. From the anova, stepR2 mod, and rda, I know that Aluminum was the most important predictor variable followed by calcium and Kalium and they influenced the invertibrate community the most ecologically. The two predictor variables I removed, totalP and OlsenP, affected the invertebrate community the least ecological. Ecologically, it's important to know how each predictor variable (abitoic facor) influences the community (invertebrate community). Antibiotic factors often limit biotic factors 
+#Question 1 answer: Even after removing a couple of non significant predictors from my abiotic factors data frame, none of the predictors p values were statistically significant. This tells us that the predictors I used don't exlplain eachother and the community well.  
 
 #(Q2 - 12 pts) Then use the dataset from the tutorial to create a linear model related to your RDA. Try multiple predictors to find the best fit model.
   # Explain the ecological importance of the significant predictors, or lack of significant predictors.
-
-
-#Since had to merge and unmeaning abiotic.means2, run this code from the tutorial so abiotic.means2 will work correctly in this section.
-
-abiotic.tibble <- read_excel("Penaetal_2016_data.xlsx", sheet = "Abiotic factors")
-
-abiotic <- as.data.frame(abiotic.tibble)
-
-abiotic.names <- paste(abiotic$Site, abiotic$Land_Use, abiotic$Plot)
-# Then add back in as a column in the data frame:
-abiotic$names <- abiotic.names
-
-abiotic.means <- aggregate(x = abiotic, by = list(abiotic$names), FUN = "mean")
-# This created warnings, so we should see what the data frame looks like:
-head(abiotic.means)
-
-abiotic.means1 <- abiotic.means[,-16] # NA column
-abiotic.means2 <- abiotic.means1[,-1:-6] # Plot and NA columns
-abiotic.means2 <- sapply(abiotic.means2, as.numeric ) # Make sure everything is numeric.
-abiotic.means2 <- as.data.frame(abiotic.means2) 
 
 #Now read in new sheet from datatset "Data_experiment_urtica"
 data_experiment_urtica.tibble <- read_excel("Penaetal_2016_data.xlsx", sheet = "Data_experiment_urtica")
 data.experiment <- as.data.frame(data_experiment_urtica.tibble)
 
-#Then create a column called "Parcel" that allows us to merge with the plants data frame based on Parcel numbers.
-abiotic.means2$Parcel <- unique(abiotic$Parcel)
+abiotic.means <- aggregate(x = abiotic, by = list(abiotic$Parcel), FUN = "mean")
+
+data.experiment <- aggregate(x = data.experiment, by = list(data.experiment$Parcel), FUN = "mean")
 
 # So instead of megring both by group.1 like before, now we merge by "Parcel" and accept all other defaults.
-data.experiment <- merge(abiotic.means2, data.experiment, by = "Parcel")
+data.experiment.merged <- merge(abiotic.means, data.experiment, by = "Parcel")
 
 
 # Let's take a quick look at our data.
 # This data frame is getting large enough that View() might be more helpful than head() for an initial look:
-View(data.experiment)
+View(data.experiment.merged)
 
 #Install these packages to do a distribution of our y (Length_main_stem)
 library(fitdistrplus)
@@ -143,13 +124,13 @@ library(logspline)
 
 #Plot distribution against ideals
 ##fit all possible/likely distribution models and check AIC/BIC
-fit.weibull <- fitdist(data.experiment$Length_main_stem, distr = "weibull")
-fit.norm <- fitdist(data.experiment$Length_main_stem, distr = "norm")
-fit.gamma <- fitdist(data.experiment$Length_main_stem, distr = "gamma")
-fit.lnorm <- fitdist(data.experiment$Length_main_stem, distr = "lnorm")
-fit.nbinom <- fitdist(data.experiment$Length_main_stem, distr = "nbinom")
-fit.logis <- fitdist(data.experiment$Length_main_stem, distr = "logis")
-fit.geom <- fitdist(data.experiment$Length_main_stem, distr = "geom")
+fit.weibull <- fitdist(data.experiment.merged$Length_main_stem, distr = "weibull")
+fit.norm <- fitdist(data.experiment.merged$Length_main_stem, distr = "norm")
+fit.gamma <- fitdist(data.experiment.merged$Length_main_stem, distr = "gamma")
+fit.lnorm <- fitdist(data.experiment.merged$Length_main_stem, distr = "lnorm")
+fit.nbinom <- fitdist(data.experiment.merged$Length_main_stem, distr = "nbinom")
+fit.logis <- fitdist(data.experiment.merged$Length_main_stem, distr = "logis")
+fit.geom <- fitdist(data.experiment.mergedt$Length_main_stem, distr = "geom")
 
 #For some reason fit.nbinom and fit.geom wont run?????:
 Error in fitdist(abiotic.invert$totalN, distr = "geom") : 
@@ -160,53 +141,64 @@ Error in fitdist(abiotic.invert$totalN, distr = "geom") :
 #call from:
 gofstat(list(fit.weibull, fit.norm, fit.gamma, 
              fit.lnorm, fit.logis))
-#Weibell is the best fit?????
+#Weibell is the best fit
 colnames(data.experiment)
 
-mod1 <- lm(Length_main_stem ~ pH + totalN + Kalium + Magnesium + Ca + Al + Flowering + Land_use + Parcel,data.experiment)
+mod1 <- lm(Length_main_stem ~ pH + totalN + Kalium + Magnesium + Ca + Al + Flowering + Land_use + Parcel,data.experiment.merged)
 summary(mod1)
 anova(mod1)
 AIC(mod1)
 
 summary(mod1)$adj.r.squared
 
-#Have way to many NA's. especially for parcel. Now we have to remove variables that are unimportant. 
+#Have way to many NA's  for parcel and Land_use.Thats why this won't run. Now we have to remove variables that are unimportant. 
 #Remove Parcel, Land_Use, and Flowering. 
 
-mod2 <- lm(Length_main_stem ~ pH + totalN + Kalium + Magnesium + Ca + Al,data.experiment)
+mod2 <- lm(Length_main_stem ~ pH + totalN + Kalium + Magnesium,data.experiment.merged)
 summary(mod2)
 anova(mod2)
 AIC(mod2)
 
 summary(mod2)$adj.r.squared
 
-#R squared got a little bit better. Now try removing calcium and aluminum
+#R squared is small, in fact its negative. The model is over fitted, so try adding variables. 
 
-mod3 <- lm(Length_main_stem ~ pH + totalN + Kalium + Magnesium,data.experiment)
+#Add Biomass
+
+mod3 <- lm(Length_main_stem ~ pH + totalN + Kalium + Magnesium + Biomass,data.experiment.merged)
 summary(mod3)
 anova(mod3)
 AIC(mod3)
 
 summary(mod3)$adj.r.squared
 
-#Huh.. That made our AIC be within 2 of mod 2, but the R squared changed a bit to none. Lets try one more thing. Maybe their is a relationship between pH, total Nitrogen (totalN), and Kalium. 
+#Wow, that made the R squared a lot better. Lets try adding one more thing and see what that does. 
 
-mod4 <- lm(Length_main_stem ~ pH*totalN*Kalium*Magnesium + Ca + Al,data.experiment)
+mod4 <- lm(Length_main_stem ~ pH + totalN + Kalium + Magnesium + Biomass + Al,data.experiment.merged)
 summary(mod4)
 anova(mod4)
 AIC(mod4)
 
 summary(mod4)$adj.r.squared
 
-#There is not a relationship between pH, total Nitrogen (totalN), and Kalium. AiC score increased a decent amount, and R suared increased a lot. 
-#I think its safe to say that mod3 is the best fit. It has an AIC score within 2 of mod2, and the R squared in mod3 is the best out of all the mod's i tried. 
+#Huh.. That did nothing to our R squared. Lets test to see if there is a relationship between biomass and aluminum. 
 
-#The AIC increased and the R squared increased, so there is likely not a significant relationship between calcium (Ca) and Aluminum (Al)
+mod5 <- lm(Length_main_stem ~ pH + totalN + Kalium + Magnesium + Biomass*Al,data.experiment.merged)
+summary(mod5)
+anova(mod5)
+AIC(mod5)
 
-#Question 2 answer: Similar to question 1, there were no predictors that were statistically significant per say. However, in mod 3, I found that pH, total nitrogen (totalN), Kalium, and Magnesium, were the predictors that resulted in the best AIC score (within 2 of mod 2) and the lowest R squared. Ecologically, it makes sense that PH, total nitrogen (totalN), Kalium, and Magnesium in response to Length_main_stem becase the sheet from the data set (Data_experiment_urtica) that includes Length_main_plant, is about the urtica genus of plant. And the predictor variables in my model of best fit (mod3) all influence plants in one way or another ecologically. Even though this makes sense ecologically, the predictors are not statistically significant. 
+summary(mod4)$adj.r.squared
+
+#Our AIC score decreased. This means there is probably a relationship between biomass and Aluminum(Al), and Kalium. R squared stayed the same.
+
+
+#I think its safe to say that mod5 is the best fit. It has the lowest AIC score, and the R squared in mod3 is the best and closest to 1 out of all the mod's I tried. 
+
+#Question 2 answer: Unlike question 1, there was one predictor value that was very statistically significant which was Biomass. This means that Biomass is very ecologically important. This makes sense as well. The more biomass you have the longer the length of ther stem is! 
 
 # (Q3 - 6 pts) Provide a 3-4 sentence synthesis of how these results relate to one another and the value of considering both together for interpreting biotic-abiotic interactions.
 
-#When we look at my results, I used abiotic factors, as well as invertebrate_community for the rda and Data_experiment_urtica for the linear model in this assignment. Even though these rebuts may differ within there community, the biotic factors in this case are all one big community that can be limited by abiotic factors. When we consider both the invertribate_community and Data_experiment_urtica, we obtain valuable ecological information and see that both communities are influenced by certain things (predictors), including abiotic factors and some of the predictors may even have direct or indirect effects/relationships. Overall, when looking at the three factors (abiotic and biotic) I chose for this assignment, they show how abitoic and bitoic interactions occur as one big community, and influence each other as an individual community or as a genus/species. 
+#When we look at my results, I used abiotic factors, as well as invertebrate_community for the rda and abitoic factors as well as Data_experiment_urtica for the linear model in this assignment. Even though these rebuts may differ within there community, the biotic factors in this case are all one big community that can be limited by abiotic factors. When we consider both the invertribate_community and Data_experiment_urtica, we obtain valuable ecological information and see that both communities are influenced by some (predictors) more than others, including abiotic and biotic factors (aka the predictors) that may even have relationships between one another. Overall, when looking at the data (abiotic and biotic) I chose for this assignment, they show how abitoic and bitoic interactions occur as one big community, and influence each other as an individual community or as a genus/species. 
 
 
