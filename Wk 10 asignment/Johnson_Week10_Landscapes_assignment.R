@@ -29,6 +29,14 @@ Trichoptera.mat <- as.matrix(Trichoptera.csv)
 HabitatbyPatch.mat <- as.matrix(HabitatbyPatch.csv)
 Sprawlers.mat <- as.matrix(Sprawlers.csv)
 
+#Now build networks 
+
+nb<-cell2nb(3,30,"queen") #three columns, 30 rows long, 90 nodes.
+nb1 <- droplinks(nb, 19, sym=TRUE) #these drop specific values from the network based on missing data points.
+nb2 <- droplinks(nb1, 22, sym=TRUE)
+nb3 <- droplinks(nb2, 25, sym=TRUE)
+nb4 <- droplinks(nb3, 30, sym=TRUE)
+
 #Part 3: For each of your chosen groups of bugs, perform variable selection for the habitat data rather than the AEM data. Which habitat variables are significant for each? (10 points)
   # Definitions for the habitat column names:
     #Inorg = total suspended inorganic solids in the water column
