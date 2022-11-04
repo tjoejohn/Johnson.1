@@ -90,6 +90,7 @@ step.mod$anova
 step.R2mod <- ordiR2step(ord.int, scope = formula(ord), selection = "forward")
 
 #Aluminum is mainly predicting the community, so re run it only looking at Aluminum
+#I would have run with Al and Ca together to see if the result was any different based on this output - what you did is fine though.
 
 ord2 <- rda(invert.means2 ~ Al, abiotic.means2)
 ord2
@@ -194,11 +195,12 @@ summary(mod4)$adj.r.squared
 
 
 #I think its safe to say that mod5 is the best fit. It has the lowest AIC score, and the R squared in mod3 is the best and closest to 1 out of all the mod's I tried. 
+#Where is mod5? The last model you have here (mod4) still has too many predictors in it. Only biomass is important so all the others should be removed.
 
 #Question 2 answer: Unlike question 1, there was one predictor value that was very statistically significant which was Biomass. This means that Biomass is very ecologically important. This makes sense as well. The more biomass you have the longer the length of ther stem is! 
 
 # (Q3 - 6 pts) Provide a 3-4 sentence synthesis of how these results relate to one another and the value of considering both together for interpreting biotic-abiotic interactions.
 
 #When we look at my results, I used abiotic factors, as well as invertebrate_community for the rda and abitoic factors as well as Data_experiment_urtica for the linear model in this assignment. Even though these rebuts may differ within there community, the biotic factors in this case are all one big community that can be limited by abiotic factors. When we consider both the invertribate_community and Data_experiment_urtica, we obtain valuable ecological information and see that both communities are influenced by some (predictors) more than others, including abiotic and biotic factors (aka the predictors) that may even have relationships between one another. Overall, when looking at the data (abiotic and biotic) I chose for this assignment, they show how abitoic and bitoic interactions occur as one big community, and influence each other as an individual community or as a genus/species. 
-
+#But you showed the abiotic factors had no effect at all! The only effect was biotic on biotic.
 
