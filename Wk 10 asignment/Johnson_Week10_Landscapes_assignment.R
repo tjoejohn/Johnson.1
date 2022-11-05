@@ -75,7 +75,6 @@ RsquareAdj(HabNoSpace.rda)
 #HabNoSpace - Converting from scientific notation? 0.04% Constrained and 78% Unconstrained. Not Signifcant.
 #Unconstrained is the same in each, but conditional changes.
 
-#Question 1 answer: 
 
 #Bewllow is from turorial to help you answer question 1!
 #Now look at the variance explained by each:
@@ -109,6 +108,8 @@ RsquareAdj(ClingersHabNoSpace.rda)
 #ClingersHabNoSpace -- 0.4% constrained and 70% conditional, Not significant
 #Unconstrained is the same, but condiotnal values change. 
 
+#Question 1 answer: When looking at the Diptera community, we can see that space with no habitat is significant and habitat with no space is not significant. For the Clingers community, Space with no habitat was significant and habitat with no space was not significant. Between the anova and the rda tests, we know that space had a grater influence on the Diptera and Clinger Community while habitat did not have a strong influence on these two communites.   
+
 #Tutorial
 #How do these compare to the full community?
 #SwimSpaceNoHab -- 33% constrained and 26% conditional
@@ -119,6 +120,8 @@ RsquareAdj(ClingersHabNoSpace.rda)
 
 
 #Part 2: What is your interpretation of the pattern for each group individually, and the two in comparison, based on their mobility? (5 points)
+
+#Looking at the Diptera and Clingers communitys, the pattern I see is that Space is much better explained as well as signifgant compared to habitat. 
 
 #Format data metrics 
 
