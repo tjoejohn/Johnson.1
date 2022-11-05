@@ -16,16 +16,16 @@ library(vegan)
 #He used bugs by patch and swimmers in the tutorial, so can't use those two excels. Must read in lat lon and HabitatbyPatch csv by well. 
 
 PatchLatLon.csv <- read.csv("PatchLatLon.csv", header=T)
-Trichoptera.csv <- read.csv("Trichoptera.csv", header=T)
+Diptera.csv <- read.csv("Diptera.csv", header=T)
 HabitatbyPatch.csv <- read.csv("HabitatbyPatch.csv", header=T)
-Sprawlers.csv <- read.csv("Sprawlers.csv", header=T)
+Clingers.csv <- read.csv("Clingers.csv", header=T)
 
 #Format data by metrics 
 
 PatchLatLon.mat <- as.matrix(PatchLatLon.csv[,-1])
-Trichoptera.mat <- as.matrix(Trichoptera.csv)
+Diptera.mat <- as.matrix(Diptera.csv)
 HabitatbyPatch.mat <- as.matrix(HabitatbyPatch.csv)
-Sprawlers.mat <- as.matrix(Sprawlers.csv)
+Clingers.mat <- as.matrix(Clingers.csv)
 
 #Now build networks 
 
@@ -49,10 +49,10 @@ aem.df
 
 
 #We will use forward selection in this case because of the sheer number of variables.
-Space.rda <- rda(Trichoptera.mat, as.data.frame(aem.df))
+Space.rda <- rda(Diptera.mat, as.data.frame(aem.df))
 Space.r2a <- RsquareAdj(Space.rda)$adj.r.squared
 
-aem.fwd <- forward.sel(Trichoptera.mat,aem.df, adjR2thresh=Space.r2a)
+aem.fwd <- forward.sel(Diptera.mat,aem.df, adjR2thresh=Space.r2a)
 
 #To identify which variables are important, you can identify them in order:
 aem.fwd$order
@@ -60,16 +60,22 @@ aem.fwd$order
 #Notice the last part of this new use of rda() - there is a third matrix for habitat data!
 #To determine how much variance is explained by spatial relationships relative to local habitat we need to compare two rda results.
 #One rda for space controlling for habitat, and one for habitat controlling for space.
-SpaceNoHab.rda <- rda(Trichoptera.mat, as.data.frame(aem.df[,aem.fwd$order]), HabitatbyPatch.mat)
+SpaceNoHab.rda <- rda(Diptera.mat, as.data.frame(aem.df[,aem.fwd$order]), HabitatbyPatch.mat)
 SpaceNoHab.rda 
 anova(SpaceNoHab.rda, perm.max = 10000)
 RsquareAdj(SpaceNoHab.rda)
 
 #And the habitat controlling for space:
-HabNoSpace.rda <- rda(Trichoptera.mat, HabitatbyPatch.mat, as.data.frame(aem.df[,aem.fwd$order]))
+HabNoSpace.rda <- rda(Diptera.mat, HabitatbyPatch.mat, as.data.frame(aem.df[,aem.fwd$order]))
 HabNoSpace.rda 
 anova(HabNoSpace.rda, perm.max = 10000)
 RsquareAdj(HabNoSpace.rda)
+
+#SpaceNoHab - 43% Constrained and 40% Conditional. Significant. 
+#HabNoSpace - Converting from scientific notation? 0.04% Constrained and 78% Unconstrained. Not Signifcant.
+#Unconstrained is the same in each, but conditional changes.
+
+#Question 1 answer: 
 
 #Bewllow is from turorial to help you answer question 1!
 #Now look at the variance explained by each:
@@ -77,6 +83,40 @@ RsquareAdj(HabNoSpace.rda)
 #SpaceNoHab - 46% constrained and 26% conditional
 #HabNoSpace - 4.9% constrained and 67% conditional
 #How is this possible? Some variance can only be explained by the synergistic relationships of habitat that varies predictably with space.
+
+#Functional Groups:
+#We can subset the whole community by particular traits to see if they have different relationships to space or the environment.
+
+#We will look at swimmers, aka bugs that can swim really well and choose where to go locally, but not regionally.
+#First need to redo the variable selection so that to match this subset of the community.
+ClingersSpace.rda <- rda(Clingers.mat, as.data.frame(aem.df))
+ClingersSpace.r2a <- RsquareAdj(ClingersSpace.rda)$adj.r.squared
+
+Clingeraem.fwd <- forward.sel(Clingers.mat,as.data.frame(aem.df), adjR2thresh=Space.r2a)
+
+#The rest of this should look the same, just substituting the right AEM vectors and the swimmer data.
+ClingersSpaceNoHab.rda <- rda(Clingers.mat, as.data.frame(aem.df[,Clingeraem.fwd$order]), HabitatbyPatch.mat)
+ClingersSpaceNoHab.rda 
+anova(ClingersSpaceNoHab.rda, perm.max = 10000)
+RsquareAdj(ClingersSpaceNoHab.rda)
+
+ClingersHabNoSpace.rda <- rda(Clingers.mat, HabitatbyPatch.mat, as.data.frame(aem.df[,Clingeraem.fwd$order]))
+ClingersHabNoSpace.rda 
+anova(ClingersHabNoSpace.rda, perm.max = 10000)
+RsquareAdj(ClingersHabNoSpace.rda)
+
+#ClingersSpaceHabNoHab -- 49% constrained and 25% conditional, Signifigant
+#ClingersHabNoSpace -- 0.4% constrained and 70% conditional, Not significant
+#Unconstrained is the same, but condiotnal values change. 
+
+#Tutorial
+#How do these compare to the full community?
+#SwimSpaceNoHab -- 33% constrained and 26% conditional
+#SwimHabNoSpace -- 10% constrained and 50% conditional
+
+
+#While habitat did not increase THAT much, it is now significant! So the community response matched this prediction.
+
 
 #Part 2: What is your interpretation of the pattern for each group individually, and the two in comparison, based on their mobility? (5 points)
 
