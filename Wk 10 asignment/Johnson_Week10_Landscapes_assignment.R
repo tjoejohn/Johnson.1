@@ -121,9 +121,7 @@ RsquareAdj(ClingersHabNoSpace.rda)
 
 #Part 2: What is your interpretation of the pattern for each group individually, and the two in comparison, based on their mobility? (5 points)
 
-#Looking at the Diptera and Clingers communitys, the pattern I see is that Space is much better explained as well as signifgant compared to habitat. 
-
-#Format data metrics 
+#Looking at the Diptera and Clingers community individually and in comparison, the pattern I see is that Space is much better explained as well as significant compared to habitat which is not explained well and not significant. In terms of mobility, it's known that Diptera (true flies) are much more mobile than Clingers. So both of these communities likely move some within there space locally, but not a lot within there enitre habitat regionally. 
 
 
 
