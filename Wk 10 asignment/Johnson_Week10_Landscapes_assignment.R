@@ -137,5 +137,29 @@ RsquareAdj(ClingersHabNoSpace.rda)
     #AveAr = The average size of rocks where each sample was collected
 
 
+#Map the empty network onto real lat/lon data, aka sampling locations.
+bin.mat <- aem.build.binary(nb4, PatchLatLon.mat, unit.angle = "degrees", rot.angle = 90, rm.same.y = TRUE, plot.connexions = TRUE)
+#How does this network compare to the real lat/lon of the points?
+plot(PatchLatLon.mat[,2]~PatchLatLon.mat[,3], xlim = rev(c(76.75,77)))
+
+#Now weight the relationships between these real locations on a prescribed network:
+Hab.ev <- aem(aem.build.binary=bin.mat)
+#Remove the rows where links were dropped and focus on vector data frame
+Hab.df <- Hab.ev$vectors[c(-19,-22,-25,-30),]
+#this creates a LOT of variables. How do we choose which to use?
+Hab.df
+
+
+#We will use forward selection in this case because of the sheer number of variables.
+Hab.rda <- rda(Diptera.mat, as.data.frame(HabitatbyPatch.csv))
+Hab.r2a <- RsquareAdj(Hab.rda)$adj.r.squared
+
+Hab.fwd <- forward.sel(Diptera.mat,Hab.df, adjR2thresh=Hab.r2a)
+
+#To identify which variables are important, you can identify them in order:
+Hab.fwd$order
+
+#To my suprise, All 27 variables for the Diptera bug group 
+
 #Part 4: How do you expect selecting both the spatial and the habitat variables would change the results of the RDAs from Part 1 above? (5 points)
   #(You do not need to redo the RDAs, unless you *want* to.)
