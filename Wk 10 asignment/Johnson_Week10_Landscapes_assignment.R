@@ -72,21 +72,13 @@ anova(HabNoSpace.rda, perm.max = 10000)
 RsquareAdj(HabNoSpace.rda)
 
 #SpaceNoHab - 43% Constrained and 40% Conditional. Significant. 
-#HabNoSpace - Converting from scientific notation? 0.04% Constrained and 78% Unconstrained. Not Signifcant.
+#HabNoSpace - Converting from scientific notation? 0.04% Constrained and 78% Unconstrained. Not Significant.
 #Unconstrained is the same in each, but conditional changes.
-
-
-#Bewllow is from turorial to help you answer question 1!
-#Now look at the variance explained by each:
-#Unconstrained variance is the same in each, but the constrained and conditional values change!
-#SpaceNoHab - 46% constrained and 26% conditional
-#HabNoSpace - 4.9% constrained and 67% conditional
-#How is this possible? Some variance can only be explained by the synergistic relationships of habitat that varies predictably with space.
 
 #Functional Groups:
 #We can subset the whole community by particular traits to see if they have different relationships to space or the environment.
 
-#We will look at swimmers, aka bugs that can swim really well and choose where to go locally, but not regionally.
+#We will look at clingers. 
 #First need to redo the variable selection so that to match this subset of the community.
 ClingersSpace.rda <- rda(Clingers.mat, as.data.frame(aem.df))
 ClingersSpace.r2a <- RsquareAdj(ClingersSpace.rda)$adj.r.squared
@@ -108,20 +100,13 @@ RsquareAdj(ClingersHabNoSpace.rda)
 #ClingersHabNoSpace -- 0.4% constrained and 70% conditional, Not significant
 #Unconstrained is the same, but condiotnal values change. 
 
-#Question 1 answer: When looking at the Diptera community, we can see that space with no habitat is significant and habitat with no space is not significant. For the Clingers community, Space with no habitat was significant and habitat with no space was not significant. Between the anova and the rda tests, we know that space had a grater influence on the Diptera and Clinger Community while habitat did not have a strong influence on these two communites.   
+#Question 1 answer: When looking at the Diptera community, we can see that space with no habitat is significant and habitat with no space is not significant. For the Clingers community, Space with no habitat was significant and habitat with no space was not significant. Between the anova and the rda tests, we know that space had a grater influence on the Diptera and Clinger Community while habitat did not have a strong influence on these two communities.   
 
-#Tutorial
-#How do these compare to the full community?
-#SwimSpaceNoHab -- 33% constrained and 26% conditional
-#SwimHabNoSpace -- 10% constrained and 50% conditional
-
-
-#While habitat did not increase THAT much, it is now significant! So the community response matched this prediction.
 
 
 #Part 2: What is your interpretation of the pattern for each group individually, and the two in comparison, based on their mobility? (5 points)
 
-#Looking at the Diptera and Clingers community individually and in comparison, the pattern I see is that Space is much better explained as well as significant compared to habitat which is not explained well and not significant. In terms of mobility, it's known that Diptera (true flies) are much more mobile than Clingers. So both of these communities likely move some within there space locally, but not a lot within there enitre habitat regionally. 
+#Looking at the Diptera and Clingers community individually and in comparison, the pattern I see is that Space is much better explained as well as significant compared to habitat which is not explained well and not significant. In terms of mobility, it's known that Diptera (true flies) are much more mobile than Clingers. So both of these communities likely move some within there space locally, but not a lot within there entire habitat regionally. 
 
 
 
@@ -137,29 +122,26 @@ RsquareAdj(ClingersHabNoSpace.rda)
     #AveAr = The average size of rocks where each sample was collected
 
 
-#Map the empty network onto real lat/lon data, aka sampling locations.
-bin.mat <- aem.build.binary(nb4, PatchLatLon.mat, unit.angle = "degrees", rot.angle = 90, rm.same.y = TRUE, plot.connexions = TRUE)
-#How does this network compare to the real lat/lon of the points?
-plot(PatchLatLon.mat[,2]~PatchLatLon.mat[,3], xlim = rev(c(76.75,77)))
+#Lets do this for Diptera
 
-#Now weight the relationships between these real locations on a prescribed network:
-Hab.ev <- aem(aem.build.binary=bin.mat)
-#Remove the rows where links were dropped and focus on vector data frame
-Hab.df <- Hab.ev$vectors[c(-19,-22,-25,-30),]
-#this creates a LOT of variables. How do we choose which to use?
-Hab.df
+DipteraSpace1.rda <- rda(Diptera.mat, as.data.frame(HabitatbyPatch.csv))
+DipteraSpace1.r2a <- RsquareAdj(DipteraSpace1.rda)$adj.r.squared
+
+DipteraSpace1.fwd <- forward.sel(Diptera.mat,as.data.frame(HabitatbyPatch.csv), adjR2thresh=Space.r2a)
 
 
-#We will use forward selection in this case because of the sheer number of variables.
-Hab.rda <- rda(Diptera.mat, as.data.frame(HabitatbyPatch.csv))
-Hab.r2a <- RsquareAdj(Hab.rda)$adj.r.squared
+#Now lets do this for clingers 
 
-Hab.fwd <- forward.sel(Diptera.mat,Hab.df, adjR2thresh=Hab.r2a)
+ClingersSpace1.rda <- rda(Clingers.mat, as.matrix(HabitatbyPatch.mat))
+ClingersSpace1.r2a <- RsquareAdj(ClingersSpace1.rda )$adj.r.squared
 
-#To identify which variables are important, you can identify them in order:
-Hab.fwd$order
+ClingerSpace1.fwd <- forward.sel(Clingers.mat,as.matrix(HabitatbyPatch.mat), adjR2thresh=Space.r2a)
 
-#To my suprise, All 27 variables for the Diptera bug group 
+#For Diptera, Chla, depth, Flow, AveAr, and Inorg are significant. 
+
+#*****For clingers, Depth and Chla are signfiigant. 
 
 #Part 4: How do you expect selecting both the spatial and the habitat variables would change the results of the RDAs from Part 1 above? (5 points)
   #(You do not need to redo the RDAs, unless you *want* to.)
+
+#If I were to select both the spatial and habitat variables, I would expect this would increase the constrained(aka explained) percentage. This is because we now have another variable helping us explain our chosen bug community. 
