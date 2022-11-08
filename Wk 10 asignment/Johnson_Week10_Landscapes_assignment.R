@@ -135,13 +135,13 @@ DipteraSpace1.fwd <- forward.sel(Diptera.mat,as.data.frame(HabitatbyPatch.csv), 
 ClingersSpace1.rda <- rda(Clingers.mat, as.matrix(HabitatbyPatch.mat))
 ClingersSpace1.r2a <- RsquareAdj(ClingersSpace1.rda )$adj.r.squared
 
-ClingerSpace1.fwd <- forward.sel(Clingers.mat,as.matrix(HabitatbyPatch.mat), adjR2thresh=Space.r2a)
+ClingerSpace1.fwd <- forward.sel(Clingers.mat, as.matrix(HabitatbyPatch.mat), adjR2thresh=Space.r2a)
 
 #For Diptera, Chla, depth, Flow, AveAr, and Inorg are significant. 
 
-#*****For clingers, Depth and Chla are signfiigant. 
+#For clingers, Depth and Chla are significant. 
 
 #Part 4: How do you expect selecting both the spatial and the habitat variables would change the results of the RDAs from Part 1 above? (5 points)
   #(You do not need to redo the RDAs, unless you *want* to.)
 
-#If I were to select both the spatial and habitat variables, I would expect this would increase the constrained(aka explained) percentage. This is because we now have another variable helping us explain our chosen bug community. 
+#If I were to select both the spatial and habitat variables, I would expect this would increase the constrained(aka explained) percentage. This is because we now have another variable helping us explain our chosen bug community, and not only how they move within there space, but also within there habitat. 
