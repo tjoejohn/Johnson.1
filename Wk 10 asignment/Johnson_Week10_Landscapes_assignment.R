@@ -73,7 +73,9 @@ RsquareAdj(HabNoSpace.rda)
 
 #SpaceNoHab - 43% Constrained and 40% Conditional. Significant. 
 #HabNoSpace - Converting from scientific notation? 0.04% Constrained and 78% Unconstrained. Not Significant.
+    #Off by a couple digits: 4.8% constrained and 77% conditional. Marginally significant. Ran it several times and always came out around 0.05.
 #Unconstrained is the same in each, but conditional changes.
+
 
 #Functional Groups:
 #We can subset the whole community by particular traits to see if they have different relationships to space or the environment.
@@ -98,15 +100,17 @@ RsquareAdj(ClingersHabNoSpace.rda)
 
 #ClingersSpaceHabNoHab -- 49% constrained and 25% conditional, Signifigant
 #ClingersHabNoSpace -- 0.4% constrained and 70% conditional, Not significant
+  #4.3% constrained and 71% conditional
 #Unconstrained is the same, but condiotnal values change. 
 
 #Question 1 answer: When looking at the Diptera community, we can see that space with no habitat is significant and habitat with no space is not significant. For the Clingers community, Space with no habitat was significant and habitat with no space was not significant. Between the anova and the rda tests, we know that space had a grater influence on the Diptera and Clinger Community while habitat did not have a strong influence on these two communities.   
 
 
-
 #Part 2: What is your interpretation of the pattern for each group individually, and the two in comparison, based on their mobility? (5 points)
 
 #Looking at the Diptera and Clingers community individually and in comparison, the pattern I see is that Space is much better explained as well as significant compared to habitat which is not explained well and not significant. In terms of mobility, it's known that Diptera (true flies) are much more mobile than Clingers. So both of these communities likely move some within there space locally, but not a lot within there entire habitat regionally. 
+#Which community is more influenced by space? (clingers)
+#The first half of your answer is great, but the second half is not based on your results.
 
 
 
@@ -145,3 +149,5 @@ ClingerSpace1.fwd <- forward.sel(Clingers.mat, as.matrix(HabitatbyPatch.mat), ad
   #(You do not need to redo the RDAs, unless you *want* to.)
 
 #If I were to select both the spatial and habitat variables, I would expect this would increase the constrained(aka explained) percentage. This is because we now have another variable helping us explain our chosen bug community, and not only how they move within there space, but also within there habitat. 
+##This might be true, but it's tangential to the question. Without selecting variables for habitat, you are likely overfitting that part of the model.
+#So the "real" influence of space is likely much stronger than what you generated with the above models.
