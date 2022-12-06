@@ -23,23 +23,45 @@ Data2.Daily_data_cod.csv <- read.csv("Daily_data_cod.csv")
 #So now we need a unique identifier to bring the two data sets together.
 #However, the column names are not exactly the same or from the exact same dates...
 #Thankfully we are in luck. Both of the studies my data came from were done in the same location of the South and South Eastern coast of Norway, specifically Skagerrak Norway. A specific part/area of the North sea. 
-#Although, location is not already a column within  my datasets. 
-#To do this, I need to R bind. 
-#See week 1 stuff to do this!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#Although location is a unique identifier, it is not already a column within  my datasets. 
+#So In order to bring the two data sets together, I need to R bind. 
 
-#First I will need to remove the columns I don't plan to use from the data frame 
+#In order to use the rbind() function, I need to first to the following steps:
+#I will need to remove the columns I don't plan to use from the data frame 
 
 #For my Dat1.xlsx frame:
-df1 <- Data1.xlsx [,c(-2:-4, -6:-7, -10:-12, -14:-16)]
+Data.set.1 <- Data1.xlsx [,c(-2:-7, -10:-12, -14:-16)]
 
 #For my Data2.Daily_data_cod frame:
-df2 <- Data2.Daily_data_cod.csv [,c(-1:-4, -6:-7, -10:-12, -14:-16)]
+Data.set.2 <- Data2.Daily_data_cod.csv [,c(-1:-4, -6, -9:-11, -13:-17)]
 
 #Great so now the columns I don't need are removed. 
-#So now 
+#However, the problem is the column names of both the data sets ("Data.set.1" and "Data.set.2" are not exaclty the same")
+#This means R will not currently let me rbind() the two data sets I listed above without R giving an error message.
+#The solution to this is changing the column names to be the same in both data sets, without altering any of the actual data from both studies. 
+# I can do this by using the following code.
+
+#For Data.set.1
+colnames(Data.set.1) <- c("Date", "Average depth_day", "Average depth_night", "Water Temperature at 1m")
+
+#For Data.set.2 
+
+colnames(Data.set.2) <- c("Date", "Average depth_day", "Average depth_night", "Water Temperature at 1m")
+
+
+#So now we can finally bring both data sets together by using the rbind() function . 
 ?rbind
 
+Master_Cod_data <- rbind(Data.set.1, Data.set.2)
 
+head(Master_Cod_data)
 
-#Now I need to merge the data. Lets start with our depth data. 
-?merge
+#Yay! Now I have my two data sets, with only the columns I want to use, brought together in one data set called "Master_cod_data". 
+#The only issue now is that their are some NA's in the Average depth_day and Average depth_night columns. 
+#However, the NA's still have data in the Date and Water tempurtaure at 1m columns that is stil usefull for what im trying to do. 
+#So, I will make all the NA's a value of 0 in the Average depth_day and Average depth_night columns with the following code.
+
+Master_Cod_data[is.na(Master_Cod_data)] <- 0
+
+#Now I can move on to making the figures. 
+
