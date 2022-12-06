@@ -27,7 +27,14 @@ Data2.Daily_data_cod.csv <- read.csv("Daily_data_cod.csv")
 #To do this, I need to R bind. 
 #See week 1 stuff to do this!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+#First I will need to remove the columns I don't plan to use from the excel. 
+
+
+df1 <- Data1.xlsx [,c(-2:-4, -6:-7, -10:-12, -14:-16)]
+
 ?rbind
+
+
 
 #Now I need to merge the data. Lets start with our depth data. 
 ?merge
