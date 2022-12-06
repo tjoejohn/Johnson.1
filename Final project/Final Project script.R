@@ -27,11 +27,16 @@ Data2.Daily_data_cod.csv <- read.csv("Daily_data_cod.csv")
 #To do this, I need to R bind. 
 #See week 1 stuff to do this!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-#First I will need to remove the columns I don't plan to use from the excel. 
+#First I will need to remove the columns I don't plan to use from the data frame 
 
-
+#For my Dat1.xlsx frame:
 df1 <- Data1.xlsx [,c(-2:-4, -6:-7, -10:-12, -14:-16)]
 
+#For my Data2.Daily_data_cod frame:
+df2 <- Data2.Daily_data_cod.csv [,c(-1:-4, -6:-7, -10:-12, -14:-16)]
+
+#Great so now the columns I don't need are removed. 
+#So now 
 ?rbind
 
 
