@@ -20,5 +20,14 @@ Data1.xlsx <- as.data.frame(Data1.xlsx.tibble)
 
 Data2.Daily_data_cod.csv <- read.csv("Daily_data_cod.csv")
 
+#So now we need a unique identifier to bring the two data sets together.
+#However, the column names are not exactly the same or from the exact same dates...
+#Thankfully we are in luck. Both of the studies my data came from were done in the same location of the South and South Eastern coast of Norway, specifically Skagerrak Norway. A specific part/area of the North sea. 
+#Although, location is not already a column within  my datasets. 
+#To do this, I need to R bind. 
+#See week 1 stuff to do this!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+?rbind
+
 #Now I need to merge the data. Lets start with our depth data. 
 ?merge
