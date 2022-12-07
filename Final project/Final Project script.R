@@ -65,3 +65,18 @@ Master_Cod_data[is.na(Master_Cod_data)] <- 0
 
 #Now I can move on to making the figures. 
 
+#The first tes/figure i would like to make is a nonlinear mdoel (GAM). 
+#In order to do this, the first step is to install the mgcv package. 
+
+install.packages("mgcv")
+library(mgcv)
+
+#Note: Y first, than X. 
+
+gam.mod1 <- gam()
+
+glmm.mod <- glmmPQL(Flight.initiation.distance..FID.~Object, family = gaussian, random = ~ 1 | ID, data = df)
+
+
+gam.mod1 <- gam(Flight.initiation.distance..FID.~Object + Area, family = Gamma, random = list(ID=~ 1), data = df)
+
