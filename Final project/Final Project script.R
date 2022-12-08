@@ -115,3 +115,4 @@ gam.mod1 <- gam(Water_Temperature_at_1m~Depth, family = gaussian, random = list(
 #Change family!!!
 ?family
 
+#Figures should be part of your paper.
