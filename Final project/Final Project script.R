@@ -93,24 +93,44 @@ colnames(Master_Cod_data2) <- c("Date", "Fish_ID", "Water_Temperature_at_1m", "D
 
 #Now I can move on to making the figures. 
 
-#The first test/figure i would like to make is a nonlinear mdoel (GAM). 
-#In order to do this, the first step is to install the mgcv package. 
+#Firgure 1
+#The first test/figure i would like to make is a nonlinear mdoel (GAM) or a generalized liner mixd model (GLMM) depnding on how the scatterplots look and if their linear or not. 
+#In order to do this, the first step is to install the following packages.  
 
 install.packages("mgcv")
 library(mgcv)
 
-#Make random effect fish id!
+install.packages("MASS")
+library(MASS)
 
-#Note: Y first, than X. 
+install.packages("MuMIn")
+library(MuMIn)
 
-gam.mod1 <- gam()
+#NOTE*Make random effect Fish_id!
 
-glmm.mod <- glmmPQL(Flight.initiation.distance..FID.~Object, family = gaussian, random = ~ 1 | ID, data = df)
+#*Note: Y first, than X. 
+
+#Generalized Linear Mixed Model 
+
+glmm.mod <- glmmPQL(Water_Temperature_at_1m~Depth, family = gaussian, random = ~ 1 | Fish_ID, data = Master_Cod_data2)
+
+r.squaredGLMM(glmm.mod)
+
+plot(glmm.mod)
 
 
-gam.mod1 <- gam(Flight.initiation.distance..FID.~Object + Area, family = Gamma, random = list(ID=~ 1), data = df)
+
+hist(Master_Cod_data2$Water_Temperature_at_1m)
+
+#Generalized addative mixed model 
 
 gam.mod1 <- gam(Water_Temperature_at_1m~Depth, family = gaussian, random = list(Fish_ID=~ 1), data = Master_Cod_data2)
+
+summary(gam.mod1)
+
+plot(gam.mod1$residuals)
+
+
 
 #Change family!!!
 ?family
