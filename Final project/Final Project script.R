@@ -93,7 +93,7 @@ colnames(Master_Cod_data2) <- c("Date", "Fish_ID", "Water_Temperature_at_1m", "D
 
 #Now I can move on to making the figures. 
 
-#Firgure 1
+#Firgure 1:
 #The first test/figure i would like to make is a nonlinear mdoel (GAM) or a generalized liner mixd model (GLMM) depnding on how the scatterplots look and if their linear or not. 
 #In order to do this, the first step is to install the following packages.  
 
