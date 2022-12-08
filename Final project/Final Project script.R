@@ -63,6 +63,8 @@ head(Master_Cod_data)
 
 Master_Cod_data[is.na(Master_Cod_data)] <- 0
 
+head(Master_Cod_data)
+
 #Within my Not_Master_Cod_data , I have 2 columns I want to make into one column.I want to make Average depth_day and Average dpeth_night into one collumn called Average_depth. 
 #I want to do this in order to smooth out tghe process of making my figures and running certain tests later on. 
 #To do this, I need to run the following code
@@ -77,7 +79,11 @@ as.numeric(as.character(Master_Cod_data$`Average depth_night`))
 
 
 #Google how to remove rows with complete cases in R
-complete.cases()
+complete.cases(Master_Cod_data)
+
+
+Master_Cod_data[complete.cases(Master_Cod_data),]
+
 
 Master_Cod_data$new <- (Master_Cod_data$`Average depth_day` + Master_Cod_data$`Average depth_night`)/2
 
