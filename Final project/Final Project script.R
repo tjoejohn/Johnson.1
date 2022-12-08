@@ -61,7 +61,7 @@ head(Master_Cod_data)
 #However, the NA's still have data in the Date and Water tempurtaure at 1m columns that is stil usefull for what im trying to do. 
 #So, I will make all the NA's a value of 0 in the Average depth_day and Average depth_night columns with the following code.
 
-Master_Cod_data[is.na(Master_Cod_data)] <- 0
+#Master_Cod_data[is.na(Master_Cod_data)] <- 0
 
 head(Master_Cod_data)
 
@@ -74,16 +74,16 @@ head(Master_Cod_data)
 Master_Cod_data$`Average depth_day` <- ifelse(is.na(Master_Cod_data$`Average depth_day`), Master_Cod_data$`Average depth_night`, Master_Cod_data$`Average depth_day`)
 Master_Cod_data$`Average depth_night` <- ifelse(is.na(Master_Cod_data$`Average depth_night`), Master_Cod_data$`Average depth_day`, Master_Cod_data$`Average depth_night`)
 
-as.numeric(as.character(Master_Cod_data$`Average depth_day`))
-as.numeric(as.character(Master_Cod_data$`Average depth_night`))
+
 
 
 #Google how to remove rows with complete cases in R
-complete.cases(Master_Cod_data)
 
 
-Master_Cod_data[complete.cases(Master_Cod_data),]
+Master_Cod_data <- Master_Cod_data[complete.cases(Master_Cod_data),]
 
+as.numeric(as.character(Master_Cod_data$`Average depth_day`))
+as.numeric(as.character(Master_Cod_data$`Average depth_night`))
 
 Master_Cod_data$new <- (Master_Cod_data$`Average depth_day` + Master_Cod_data$`Average depth_night`)/2
 
