@@ -80,10 +80,14 @@ Master_Cod_data$`Average depth_night` <- ifelse(is.na(Master_Cod_data$`Average d
 #Google how to remove rows with complete cases in R
 
 
-Master_Cod_data <- Master_Cod_data[complete.cases(Master_Cod_data),]
+#Master_Cod_data <- Master_Cod_data[complete.cases(Master_Cod_data$`Average depth_day`),]
+#Master_Cod_data <- Master_Cod_data[complete.cases(Master_Cod_data$`Average depth_night`),]
 
-as.numeric(as.character(Master_Cod_data$`Average depth_day`))
-as.numeric(as.character(Master_Cod_data$`Average depth_night`))
+Master_Cod_data <- subset(Master_Cod_data, Master_Cod_data$`Average depth_night` != "NA")
+Master_Cod_data <- subset(Master_Cod_data, Master_Cod_data$`Average depth_day` != "NA")
+
+Master_Cod_data$`Average depth_day`<-as.numeric(as.character(Master_Cod_data$`Average depth_day`))
+Master_Cod_data$`Average depth_night`<-as.numeric(as.character(Master_Cod_data$`Average depth_night`))
 
 Master_Cod_data$new <- (Master_Cod_data$`Average depth_day` + Master_Cod_data$`Average depth_night`)/2
 
