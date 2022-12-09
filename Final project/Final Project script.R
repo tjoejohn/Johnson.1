@@ -94,7 +94,7 @@ colnames(Master_Cod_data2) <- c("Date", "Fish_ID", "Water_Temperature_at_1m", "D
 #Now I can move on to making the figures. 
 
 #Firgure 1:
-#The first test/figure i would like to make is a nonlinear mdoel (GAM) or a generalized liner mixd model (GLMM) depnding on how the scatterplots look and if their linear or not. 
+#The first test/figure i would like to make is a nonlinear mdoel (GAM) or a generalized liner mixed model (GLMM) depending on how the scatterplots and or resiudals look and if their linear or not. 
 #In order to do this, the first step is to install the following packages.  
 
 install.packages("mgcv")
@@ -110,31 +110,107 @@ library(MuMIn)
 
 #*Note: Y first, than X. 
 
-#Generalized Linear Mixed Model 
+#Generalized Linear Mixed Model
+#Use gaussian family. This is the only family that worked when I tried doing all the family's for this glmm.  
 
-glmm.mod <- glmmPQL(Water_Temperature_at_1m~Depth, family = gaussian, random = ~ 1 | Fish_ID, data = Master_Cod_data2)
+glmm.mod <- glmmPQL(Depth~Water_Temperature_at_1m, family = gaussian, random = ~ 1 | Fish_ID, data = Master_Cod_data2)
 
 r.squaredGLMM(glmm.mod)
 
-plot(glmm.mod)
+summary(glmm.mod)
 
+plot(glmm.mod)
 
 
 hist(Master_Cod_data2$Water_Temperature_at_1m)
 
 #Generalized addative mixed model 
 
-gam.mod1 <- gam(Water_Temperature_at_1m~Depth, family = gaussian, random = list(Fish_ID=~ 1), data = Master_Cod_data2)
+gam.mod1 <- gam(Depth~Water_Temperature_at_1m, family = gaussian, random = list(Fish_ID=~ 1), data = Master_Cod_data2)
 
 summary(gam.mod1)
 
 plot(gam.mod1$residuals)
 
+r.squaredGLMM(gam.mod1)
+
+
 #Change family!!!
 ?family
 
+#Figure 1 messing around/experimenting:
+
+r.squaredGLMM(glmm.mod)
+
+
+# Notice the error? This is the problem with trying to fit a non-normal distribution into a linear model. It doesn't always work
+# Between this error and our pattern in the residuals, it's time to try a non-linear option.
+
+# This red message isn't an error - it's just notifying us the function has been updated from it's original version.
+#The R squared gives us two results - the R2m is "marginal"
+# This is the R-squared we really care about. It represents the variance explained by "fixed" effects.
+# These are the ones we have "fixed" in the model - the usual (x) values.
+
+# The R2c value is the "conditional" variance explained by the random effect of individual
+# So this is saying the response is much more strongly predicted by boldness of the individual squirrel 
+# rather than the presence of a human or other predator. 
+
+# We can compare our AIC scores side-by-side now:
+AIC(gam.mod1, gam.mod2)
+
+# The interactive model is a better fit for the data with both a higher R-squared and lower AIC, so that would be the best approximation of these data.
+
+
 #Figure 2:
 #The second thing I would like to look at is how the depth of the cod is changed over time. 
-#To do this I will do a 
+#To do this I will again either use a a nonlinear mdoel (GAM) or a generalized liner mixed model (GLMM) depending on how the scatterplots and or resiudals look and if their linear or not. 
+#The necessary packages should be installed and running before. 
+#However, with my data frame "Master_Cod_data2", under the column date, the year, month, and day are listed in each row.
+#For this figure, I only would like to use year. I already have lots of data points, so using year on the x axis, as opposed to month or day, will hopefully create less confusion for the reader in my results and discussions part of this project
+#That means I have to extract year from date and month already in the "Date" column of the "Master_Cod_data2" data frame. 
+#So to do this, I have to run the followng code:
+
+print ("Master_Cod_data2")
+Master_Cod_data2
+
+Master_Cod_data2$Date <- as.Date(Master_Cod_data2$Date)
+print("Extract year")
+
+Master_Cod_data2$Date <- as.numeric(format(Master_Cod_data2$Date, "%Y"))
+Master_Cod_data2
+
+#Now we have Year extracted and alone, but it's under the date column. I should rename it to Year instead. 
+
+colnames(Master_Cod_data2) <- c("Year", "Fish_ID", "Water_Temperature_at_1m", "Depth")
+#Now I can create my model. 
+
+
+glmm.mod2 <- glmmPQL(Year~Depth, family = gaussian, random = ~ 1 | Fish_ID, data = Master_Cod_data2)
+
+
+r.squaredGLMM(glmm.mod2)
+
+summary(glmm.mod2)
+
+plot(glmm.mod2)
+
+
+gam.mod2 <- gam(Year~Depth, family = gaussian, random = list(Fish_ID=~ 1), data = Master_Cod_data2)
+
+summary(gam.mod2)
+
+# Notice in the interactive model the r-squared went from 0.27 to 0.38, which is a good sign. 
+# But we've also added quite a few interactive predictors.
+
+plot(gam.mod2$residuals)
+
+AIC(gam.mod2)
+
+#Left off here. 
+#Seems like for figure 1, glmm.mod is better. (I think)
+#For figure 2, I;m not sure weather glmm.mod2 is better of gam.mod2 is better. Leaning towards gam.mod2.
+#gam.mod2 has higher R squared. so might be better.
+#DELETE THE 4 LINES ABOVES WHEN DECIDE!!!
 
 #Figures should be part of your paper.
+
