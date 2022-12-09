@@ -130,9 +130,11 @@ summary(gam.mod1)
 
 plot(gam.mod1$residuals)
 
-
-
 #Change family!!!
 ?family
+
+#Figure 2:
+#The second thing I would like to look at is how the depth of the cod is changed over time. 
+#To do this I will do a 
 
 #Figures should be part of your paper.
