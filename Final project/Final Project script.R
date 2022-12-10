@@ -90,10 +90,11 @@ Master_Cod_data2 <- Master_Cod_data [,c(-3:-4)]
 
 colnames(Master_Cod_data2) <- c("Date", "Fish_ID", "Water_Temperature_at_1m", "Depth")
 
-
+#Lasly before i start making the figures, it's important to note what units were used in this study, especially ll be analyzing numbers with units in my figures. 
+#In this study, temperature was measured in ℃, and Depth (that the fish were found at within the water column) was m(meters).
 #Now I can move on to making the figures. 
 
-#Firgure 1:
+#Figure 1:
 #The first test/figure i would like to make is a nonlinear mdoel (GAM) or a generalized liner mixed model (GLMM) depending on how the scatterplots and or resiudals look and if their linear or not. 
 #In order to do this, the first step is to install the following packages.  
 
@@ -160,6 +161,7 @@ AIC(gam.mod1, gam.mod2)
 
 # The interactive model is a better fit for the data with both a higher R-squared and lower AIC, so that would be the best approximation of these data.
 
+#Figure 1 analysis:
 
 #Figure 2:
 #The second thing I would like to look at is how the depth of the cod is changed over time. 
@@ -212,5 +214,18 @@ AIC(gam.mod2)
 #gam.mod2 has higher R squared. so might be better.
 #DELETE THE 4 LINES ABOVES WHEN DECIDE!!!
 
-#Figures should be part of your paper.
+#Figure 2 analysis 
+
+
+#Figure 3: 
+#For my third figure, I will be doing a scatter plot. I wan' to do this to show the relation and the significance between how cod depth has changeed over time. 
+
+Figure_3 <- lm(Master_Cod_data2$Depth ~ Master_Cod_data2$Year)
+
+plot(Master_Cod_data2$Depth ~ Master_Cod_data2$Year, xlab ="Year", ylab ="Depth (m)", main = "Figure_3")
+abline(Figure_3, col = "cyan4", lwd= 3)
+
+
+#Figures should be part of your paper
+
 
