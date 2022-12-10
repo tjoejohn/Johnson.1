@@ -22,7 +22,7 @@ Data2.Daily_data_cod.csv <- read.csv("Daily_data_cod.csv")
 
 #So now we need a unique identifier to bring the two data sets together.
 #However, the column names are not exactly the same or from the exact same dates...
-#Thankfully we are in luck. Both of the studies my data came from were done in the same location of the South and South Eastern coast of Norway, specifically Skagerrak Norway. A specific part/area of the North sea. 
+#Thankfully we are in luck. Both of the studies my data came from were done in the same location off of the South and South Eastern coast of Norway, specifically Skagerrak Norway. A specific part/area of the North sea. 
 #Although location is a unique identifier, it is not already a column within  my datasets. 
 #So In order to bring the two data sets together, I need to R bind. 
 
@@ -218,13 +218,19 @@ AIC(gam.mod2)
 
 
 #Figure 3: 
-#For my third figure, I will be doing a scatter plot. I wan' to do this to show the relation and the significance between how cod depth has changeed over time. 
+#For my third figure, I will be doing a scatter plot. I want to do this to show the relation and the significance of how the depth cod are ound at in the ocean has changed over time.
+#In order to do this, I will need to make a new data frame that specifies which columns I would like to use from within the Master_Cod_data2 data frame.  
 
 Figure_3 <- lm(Master_Cod_data2$Depth ~ Master_Cod_data2$Year)
 
-plot(Master_Cod_data2$Depth ~ Master_Cod_data2$Year, xlab ="Year", ylab ="Depth (m)", main = "Figure_3")
+#Now I can make this scatter plot. Make sure to name the main figur and give each axis a clear name.
+#I will also add a trend line using the abline function to make the trend clear to the reader in my relsuts and discussion section of my paper. 
+
+
+plot(Master_Cod_data2$Depth ~ Master_Cod_data2$Year, xlab ="Year", ylab ="Depth (m)", main = "Figure_3", pch = 21, cex = 1.6)
 abline(Figure_3, col = "cyan4", lwd= 3)
 
+#Note, I tried doing this with a ggplot as well, but it pretty much looks the same as the base model plot. So I will stick with with base modle plot. 
 
 #Figures should be part of your paper
 
