@@ -233,5 +233,3 @@ abline(Figure_3, col = "cyan4", lwd= 3)
 #Note, I tried doing this with a ggplot as well, but it pretty much looks the same as the base model plot. So I will stick with with base modle plot. 
 
 #Figures should be part of your paper
-
-
