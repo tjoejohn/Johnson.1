@@ -195,9 +195,7 @@ Master_Cod_data2
 colnames(Master_Cod_data2) <- c("Year", "Fish_ID", "Water_Temperature_at_1m", "Depth")
 #Now I can create my model. 
 
-
 glmm.mod2 <- glmmPQL(Year~Depth, family = gaussian, random = ~ 1 | Fish_ID, data = Master_Cod_data2)
-
 
 r.squaredGLMM(glmm.mod2)
 
@@ -210,12 +208,15 @@ gam.mod2 <- gam(Year~Depth, family = gaussian, random = list(Fish_ID=~ 1), data 
 
 summary(gam.mod2)
 
-# Notice in the interactive model the r-squared went from 0.27 to 0.38, which is a good sign. 
-# But we've also added quite a few interactive predictors.
-
 plot(gam.mod2$residuals)
 
 AIC(gam.mod2)
+
+#Make histogram for this or figure 1?
+
+# Notice in the interactive model the r-squared went from 0.27 to 0.38, which is a good sign. 
+# But we've also added quite a few interactive predictors.
+
 
 #Left off here. 
 #Seems like for figure 1, glmm.mod is better. (I think)
@@ -227,7 +228,7 @@ AIC(gam.mod2)
 
 
 #Figure 3: 
-#For my third figure, I will be doing a scatter plot. I want to do this to show the relation and the significance of how the depth cod are found at in the ocean has changed over time.
+#For my third figure, I will be doing a scatter plot. I want to do this to show the relation and the significance of how the depth cod are found at in the ocean has changed over time, rather than just the residuals which I showed in figure 2. 
 #In order to do this, I will need to make a new data frame that specifies which columns I would like to use from within the Master_Cod_data2 data frame.  
 
 Figure_3 <- lm(Master_Cod_data2$Depth ~ Master_Cod_data2$Year)
