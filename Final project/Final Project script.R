@@ -81,7 +81,6 @@ Master_Cod_data$`Average depth_night`<-as.numeric(as.character(Master_Cod_data$`
 
 Master_Cod_data$new <- (Master_Cod_data$`Average depth_day` + Master_Cod_data$`Average depth_night`)/2
 
-
 #This created the depth data as a column titled new in the Master_Cod_data frame. So now I don't need the Average depth_day and Average depth_night columns. So lets get rid of those two columns in a new data frame. 
 
 Master_Cod_data2 <- Master_Cod_data [,c(-3:-4)]
@@ -95,7 +94,7 @@ colnames(Master_Cod_data2) <- c("Date", "Fish_ID", "Water_Temperature_at_1m", "D
 #Now I can move on to making the figures. 
 
 #Figure 1:
-#The first test/figure i would like to make is a nonlinear mdoel (GAM) or a generalized liner mixed model (GLMM) depending on how the scatterplots and or resiudals look and if their linear or not. 
+#The first test/figure i would like to make is a generalized liner mixed model (GLMM). 
 #In order to do this, the first step is to install the following packages.  
 
 install.packages("mgcv")
@@ -107,23 +106,33 @@ library(MASS)
 install.packages("MuMIn")
 library(MuMIn)
 
-#NOTE*Make random effect Fish_id!
+
 
 #*Note: Y first, than X. 
 
 #Generalized Linear Mixed Model
-#Use gaussian family. This is the only family that worked when I tried doing all the family's for this glmm.  
+#Use Gaussian family. This is the only family that worked when I tried doing all the family's for this glmm.  
+#NOTE*, that for the glmm, the random random effect is Fish_id!
 
 glmm.mod <- glmmPQL(Depth~Water_Temperature_at_1m, family = gaussian, random = ~ 1 | Fish_ID, data = Master_Cod_data2)
 
+#Now lets run some tests to tell us more about the glmm. 
+
 r.squaredGLMM(glmm.mod)
+
+#          R2m     R2c
+#[1,] 0.01379094 0.39361
 
 summary(glmm.mod)
 
-plot(glmm.mod)
+#Lastly, I can plot the residuals of this glmm. The axis names and the color/visability of the points look good, but I should still add a figure title, chnage the point size, and point shape. 
+
+
+plot(glmm.mod, main = "Figure_1", pch = 21, cex = 1.2)
 
 
 hist(Master_Cod_data2$Water_Temperature_at_1m)
+
 
 #Generalized addative mixed model 
 
@@ -157,7 +166,7 @@ r.squaredGLMM(glmm.mod)
 # rather than the presence of a human or other predator. 
 
 # We can compare our AIC scores side-by-side now:
-AIC(gam.mod1, gam.mod2)
+AIC(glmm.mod, gam.mod1)
 
 # The interactive model is a better fit for the data with both a higher R-squared and lower AIC, so that would be the best approximation of these data.
 
@@ -218,18 +227,18 @@ AIC(gam.mod2)
 
 
 #Figure 3: 
-#For my third figure, I will be doing a scatter plot. I want to do this to show the relation and the significance of how the depth cod are ound at in the ocean has changed over time.
+#For my third figure, I will be doing a scatter plot. I want to do this to show the relation and the significance of how the depth cod are found at in the ocean has changed over time.
 #In order to do this, I will need to make a new data frame that specifies which columns I would like to use from within the Master_Cod_data2 data frame.  
 
 Figure_3 <- lm(Master_Cod_data2$Depth ~ Master_Cod_data2$Year)
 
-#Now I can make this scatter plot. Make sure to name the main figur and give each axis a clear name.
+#Now I can make this scatter plot. Make sure to name the main figure, give each axis a clear name, and change the point size as well a shape. 
 #I will also add a trend line using the abline function to make the trend clear to the reader in my relsuts and discussion section of my paper. 
-
+#Also for the tend line, I will change it's color and size to make it easier to see for the reader. 
 
 plot(Master_Cod_data2$Depth ~ Master_Cod_data2$Year, xlab ="Year", ylab ="Depth (m)", main = "Figure_3", pch = 21, cex = 1.6)
 abline(Figure_3, col = "cyan4", lwd= 3)
 
-#Note, I tried doing this with a ggplot as well, but it pretty much looks the same as the base model plot. So I will stick with with base modle plot. 
+#Note, I tried doing this with a ggplot as well, but it pretty much looks the same as the base model plot. So I will stick with with base model plot. 
 
 #Figures should be part of your paper
