@@ -107,46 +107,31 @@ install.packages("MuMIn")
 library(MuMIn)
 
 
-
 #*Note: Y first, than X. 
-
-#Generalized Linear Mixed Model
-#Use Gaussian family. This is the only family that worked when I tried doing all the family's for this glmm.  
-#NOTE*, that for the glmm, the random random effect is Fish_id!
-
-glmm.mod <- glmmPQL(Depth~Water_Temperature_at_1m, family = gaussian, random = ~ 1 | Fish_ID, data = Master_Cod_data2)
-
-#Now lets run some tests to tell us more about the glmm. 
-
-r.squaredGLMM(glmm.mod)
-
-#          R2m     R2c
-#[1,] 0.01379094 0.39361
-
-summary(glmm.mod)
-
-#Lastly, I can plot the residuals of this glmm. The axis names and the color/visability of the points look good, but I should still add a figure title, chnage the point size, and point shape. 
-
-
-plot(glmm.mod, main = "Figure_1", pch = 21, cex = 1.2)
-
 
 hist(Master_Cod_data2$Water_Temperature_at_1m)
 
 
-#Generalized addative mixed model 
+#Generalized additive mixed model 
+
+#Use Gaussian family. This is the only family that worked when I tried doing all the family's for this glmm.  
+#NOTE*, that for the gam, the random effect is Fish_id!
+
+#Lastly, I can plot the residuals of this gam. The axis names and the color/visability of the points look good, but I should still add a figure title, chnage the point size, and point shape. 
+
 
 gam.mod1 <- gam(Depth~Water_Temperature_at_1m, family = gaussian, random = list(Fish_ID=~ 1), data = Master_Cod_data2)
 
 summary(gam.mod1)
 
-plot(gam.mod1$residuals)
+plot(gam.mod1$residuals, main = "Figure_1", xlab = "Predicted Value" ,ylab = "Residuals", pch = 21, cex = 1.2) 
+abline(0,0, lwd = 2.5, col = "red")
+
 
 r.squaredGLMM(gam.mod1)
 
-
-#Change family!!!
-?family
+#         R2m         R2c
+#[1,] 0.001331264 0.001331264
 
 #Figure 1 messing around/experimenting:
 
@@ -243,3 +228,7 @@ abline(Figure_3, col = "cyan4", lwd= 3)
 #Note, I tried doing this with a ggplot as well, but it pretty much looks the same as the base model plot. So I will stick with with base model plot. 
 
 #Figures should be part of your paper
+
+#Historgam 
+
+hist(Master_Cod_data2$Water_Temperature_at_1m)
