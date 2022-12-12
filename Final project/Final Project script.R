@@ -197,7 +197,6 @@ plot(gam.mod2$residuals)
 
 AIC(gam.mod2)
 
-#Make histogram for this or figure 1?
 
 # Notice in the interactive model the r-squared went from 0.27 to 0.38, which is a good sign. 
 # But we've also added quite a few interactive predictors.
@@ -208,6 +207,21 @@ AIC(gam.mod2)
 #For figure 2, I;m not sure weather glmm.mod2 is better of gam.mod2 is better. Leaning towards gam.mod2.
 #gam.mod2 has higher R squared. so might be better.
 #DELETE THE 4 LINES ABOVES WHEN DECIDE!!!
+
+#Make histogram for this or figure 1 to show the frequency of the Atlantic Cod at Certain water temperatures. 
+#To mkae this histogram, I have to intsall the following package. 
+
+install.packages("ggplot2")
+library(ggplot2)
+
+#To make this historgam, run the following code. 
+
+ggplot(Master_Cod_data2, aes(x = Water_Temperature_at_1m)) +
+  geom_histogram(color = "dark grey", fill = "dodgerblue3", bins = 20) +
+  labs(x = "Water Temperature at 1m (Degree Celsius)", y = "Count", title = "Figure_2") +
+  geom_vline(aes(xintercept = mean(Master_Cod_data2$Water_Temperature_at_1m, na.rm = TRUE), color = "mean"), show.legend = TRUE, size = 2) +
+  scale_color_manual(name = "Legend", values = c(mean = "red"))
+
 
 #Figure 2 analysis 
 
