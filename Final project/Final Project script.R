@@ -157,7 +157,7 @@ AIC(glmm.mod, gam.mod1)
 
 #Figure 1 analysis:
 
-#Figure 2:
+#Analysis + Figure 2:
 #The second thing I would like to look at is how the depth of the cod is changed over time. 
 #To do this I will again either use a a nonlinear mdoel (GAM) or a generalized liner mixed model (GLMM) depending on how the scatterplots and or resiudals look and if their linear or not. 
 #The necessary packages should be installed and running before. 
@@ -243,6 +243,13 @@ abline(Figure_3, col = "cyan4", lwd= 3)
 
 #Figures should be part of your paper
 
-#Historgam 
+#Analysis 3: 
 
-hist(Master_Cod_data2$Water_Temperature_at_1m)
+Mod.lm <- lm(Master_Cod_data2$Water_Temperature_at_1m ~ Master_Cod_data2$Year)
+
+anova(Mod.lm)
+
+plot(Mod.lm)
+
+#This is significant!!!
+
