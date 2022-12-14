@@ -65,7 +65,6 @@ Master_Cod_data <- subset(Master_Cod_data, Master_Cod_data$`Average depth_night`
 Master_Cod_data <- subset(Master_Cod_data, Master_Cod_data$`Average depth_day` != "NA")
 
 
-
 Master_Cod_data$`Average depth_day` <- ifelse(is.na(Master_Cod_data$`Average depth_day`), Master_Cod_data$`Average depth_night`, Master_Cod_data$`Average depth_day`)
 Master_Cod_data$`Average depth_night` <- ifelse(is.na(Master_Cod_data$`Average depth_night`), Master_Cod_data$`Average depth_day`, Master_Cod_data$`Average depth_night`)
 
@@ -93,8 +92,8 @@ colnames(Master_Cod_data2) <- c("Date", "Fish_ID", "Water_Temperature_at_1m", "D
 #In this study, temperature was measured in ℃, and Depth (that the fish were found at within the water column) was m(meters).
 #Now I can move on to making the figures. 
 
-#Figure 1:
-#The first test/figure i would like to make is a generalized liner mixed model (GLMM). 
+#Anlysis 1:
+#The first test/anyliss I would like to make is a generalized liner mixed model (GLMM). 
 #In order to do this, the first step is to install the following packages.  
 
 install.packages("mgcv")
@@ -109,9 +108,6 @@ library(MuMIn)
 
 #*Note: Y first, than X. 
 
-hist(Master_Cod_data2$Water_Temperature_at_1m)
-
-
 #Generalized additive mixed model 
 
 #Use Gaussian family. This is the only family that worked when I tried doing all the family's for this glmm.  
@@ -124,47 +120,24 @@ gam.mod1 <- gam(Depth~Water_Temperature_at_1m, family = gaussian, random = list(
 
 summary(gam.mod1)
 
-plot(gam.mod1$residuals, main = "Figure_1", xlab = "Predicted Value" ,ylab = "Residuals", pch = 21, cex = 1.2) 
-abline(0,0, lwd = 2.5, col = "red")
-
-
 r.squaredGLMM(gam.mod1)
 
 #         R2m         R2c
 #[1,] 0.001331264 0.001331264
 
-#Figure 1 messing around/experimenting:
+#Figure 1: A residuals plot showing the residuals from my analysis 1, which is a generalized additvie mixed model.
+#Make sure to add trend line, choose colors that are easy for reader to see, and change point size and trend line size. 
 
-r.squaredGLMM(glmm.mod)
+plot(gam.mod1$residuals, main = "Figure_1", xlab = "Predicted Value" ,ylab = "Residuals", pch = 21, cex = 1.2) 
+abline(0,0, lwd = 2.5, col = "red")
 
-
-# Notice the error? This is the problem with trying to fit a non-normal distribution into a linear model. It doesn't always work
-# Between this error and our pattern in the residuals, it's time to try a non-linear option.
-
-# This red message isn't an error - it's just notifying us the function has been updated from it's original version.
-#The R squared gives us two results - the R2m is "marginal"
-# This is the R-squared we really care about. It represents the variance explained by "fixed" effects.
-# These are the ones we have "fixed" in the model - the usual (x) values.
-
-# The R2c value is the "conditional" variance explained by the random effect of individual
-# So this is saying the response is much more strongly predicted by boldness of the individual squirrel 
-# rather than the presence of a human or other predator. 
-
-# We can compare our AIC scores side-by-side now:
-AIC(glmm.mod, gam.mod1)
-
-# The interactive model is a better fit for the data with both a higher R-squared and lower AIC, so that would be the best approximation of these data.
-
-#Figure 1 analysis:
-
-#Analysis + Figure 2:
+#Analysis 2 :
 #The second thing I would like to look at is how the depth of the cod is changed over time. 
-#To do this I will again either use a a nonlinear mdoel (GAM) or a generalized liner mixed model (GLMM) depending on how the scatterplots and or resiudals look and if their linear or not. 
-#The necessary packages should be installed and running before. 
+#To do this I will again either use a glmm,or a generalized liner mixed model (GLMM).
 #However, with my data frame "Master_Cod_data2", under the column date, the year, month, and day are listed in each row.
-#For this figure, I only would like to use year. I already have lots of data points, so using year on the x axis, as opposed to month or day, will hopefully create less confusion for the reader in my results and discussions part of this project
+#For this analysis, and for my second figure later on, I only would like to use year. I already have lots of data points, so using year on the x axis, as opposed to month or day, will hopefully create less confusion for the reader in my results and discussions part of this project.
 #That means I have to extract year from date and month already in the "Date" column of the "Master_Cod_data2" data frame. 
-#So to do this, I have to run the followng code:
+#So to do this, I have to run the following code:
 
 print ("Master_Cod_data2")
 Master_Cod_data2
@@ -183,48 +156,26 @@ colnames(Master_Cod_data2) <- c("Year", "Fish_ID", "Water_Temperature_at_1m", "D
 glmm.mod2 <- glmmPQL(Year~Depth, family = gaussian, random = ~ 1 | Fish_ID, data = Master_Cod_data2)
 
 r.squaredGLMM(glmm.mod2)
+           #R2m       R2c
+#[1,] 0.0003541281 0.9851525
 
 summary(glmm.mod2)
 
-plot(glmm.mod2)
 
-
-gam.mod2 <- gam(Year~Depth, family = gaussian, random = list(Fish_ID=~ 1), data = Master_Cod_data2)
-
-summary(gam.mod2)
-
-plot(gam.mod2$residuals)
-
-AIC(gam.mod2)
-
-
-# Notice in the interactive model the r-squared went from 0.27 to 0.38, which is a good sign. 
-# But we've also added quite a few interactive predictors.
-
-
-#Left off here. 
-#Seems like for figure 1, glmm.mod is better. (I think)
-#For figure 2, I;m not sure weather glmm.mod2 is better of gam.mod2 is better. Leaning towards gam.mod2.
-#gam.mod2 has higher R squared. so might be better.
-#DELETE THE 4 LINES ABOVES WHEN DECIDE!!!
-
-#Make histogram for this or figure 1 to show the frequency of the Atlantic Cod at Certain water temperatures. 
-#To mkae this histogram, I have to intsall the following package. 
+#Figure 2: 
+#For my second figure, I would like to make a histogram to show the frequency of the Atlantic Cod at Certain water temperatures. 
+#To makae this histogram, I have to intsall the following package. 
 
 install.packages("ggplot2")
 library(ggplot2)
 
-#To make this historgam, run the following code. 
+#To make this histogram, run the following code. 
 
 ggplot(Master_Cod_data2, aes(x = Water_Temperature_at_1m)) +
   geom_histogram(color = "dark grey", fill = "dodgerblue3", bins = 20) +
   labs(x = "Water Temperature at 1m (Degree Celsius)", y = "Count", title = "Figure_2") +
   geom_vline(aes(xintercept = mean(Master_Cod_data2$Water_Temperature_at_1m, na.rm = TRUE), color = "mean"), show.legend = TRUE, size = 2) +
   scale_color_manual(name = "Legend", values = c(mean = "red"))
-
-
-#Figure 2 analysis 
-
 
 #Figure 3: 
 #For my third figure, I will be doing a scatter plot. I want to do this to show the relation and the significance of how the depth cod are found at in the ocean has changed over time, rather than just the residuals which I showed in figure 2. 
@@ -241,15 +192,15 @@ abline(Figure_3, col = "cyan4", lwd= 3)
 
 #Note, I tried doing this with a ggplot as well, but it pretty much looks the same as the base model plot. So I will stick with with base model plot. 
 
-#Figures should be part of your paper
-
 #Analysis 3: 
+#For my third analysis, I will use a linear model to look at Water temperature at 1m and Year. 
 
 Mod.lm <- lm(Master_Cod_data2$Water_Temperature_at_1m ~ Master_Cod_data2$Year)
 
 anova(Mod.lm)
 
-plot(Mod.lm)
-
 #This is significant!!!
+#The anova shows that that year is significant. 
+
+#Figures should be part of your paper
 
