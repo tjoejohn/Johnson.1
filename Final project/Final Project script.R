@@ -63,7 +63,7 @@ head(Master_Cod_data)
 
 Master_Cod_data <- subset(Master_Cod_data, Master_Cod_data$`Average depth_night` != "NA")
 Master_Cod_data <- subset(Master_Cod_data, Master_Cod_data$`Average depth_day` != "NA")
-
+#These two lines do not convert NA to zero, they simply remove rows with NA in the specified column.
 
 Master_Cod_data$`Average depth_day` <- ifelse(is.na(Master_Cod_data$`Average depth_day`), Master_Cod_data$`Average depth_night`, Master_Cod_data$`Average depth_day`)
 Master_Cod_data$`Average depth_night` <- ifelse(is.na(Master_Cod_data$`Average depth_night`), Master_Cod_data$`Average depth_day`, Master_Cod_data$`Average depth_night`)
@@ -130,7 +130,8 @@ r.squaredGLMM(gam.mod1)
 
 plot(gam.mod1$residuals, main = "Figure_1", xlab = "Predicted Value" ,ylab = "Residuals", pch = 21, cex = 1.2) 
 abline(0,0, lwd = 2.5, col = "red")
-
+#These residuals are not evenly/randomly distributed around zero. Also, a residual plot is not a figure that explains anything about your results.
+#Residuals simply tell you if your test was a good approximation of the data, and it was not in this case.
 #Analysis 2 :
 #The second thing I would like to look at is how the depth of the cod is changed over time. 
 #To do this I will again either use a glmm,or a generalized liner mixed model (GLMM).
@@ -154,7 +155,7 @@ colnames(Master_Cod_data2) <- c("Year", "Fish_ID", "Water_Temperature_at_1m", "D
 #Now I can create my model. 
 
 glmm.mod2 <- glmmPQL(Year~Depth, family = gaussian, random = ~ 1 | Fish_ID, data = Master_Cod_data2)
-
+#Your x and y are backward in this model. Time moves forward regardless of the depth a fish is at.
 r.squaredGLMM(glmm.mod2)
            #R2m       R2c
 #[1,] 0.0003541281 0.9851525
@@ -176,7 +177,7 @@ ggplot(Master_Cod_data2, aes(x = Water_Temperature_at_1m)) +
   labs(x = "Water Temperature at 1m (Degree Celsius)", y = "Count", title = "Figure_2") +
   geom_vline(aes(xintercept = mean(Master_Cod_data2$Water_Temperature_at_1m, na.rm = TRUE), color = "mean"), show.legend = TRUE, size = 2) +
   scale_color_manual(name = "Legend", values = c(mean = "red"))
-
+#Nice figure! That is a dramatic comparison, especially with the mean line on there.
 #Figure 3: 
 #For my third figure, I will be doing a scatter plot. I want to do this to show the relation and the significance of how the depth cod are found at in the ocean has changed over time, rather than just the residuals which I showed in figure 2. 
 #In order to do this, I will need to make a new data frame that specifies which columns I would like to use from within the Master_Cod_data2 data frame.  
@@ -199,8 +200,13 @@ Mod.lm <- lm(Master_Cod_data2$Water_Temperature_at_1m ~ Master_Cod_data2$Year)
 
 anova(Mod.lm)
 
+#You should have combined this with the Figure 3 plot/analysis. It is a great story - the water is warmer so the fish go deeper each year!
+
 #This is significant!!!
 #The anova shows that that year is significant. 
 
 #Figures should be part of your paper
 
+#Great job commenting out everything you did and explaining each step in the process!
+#The only real issue is your presetation of the residuals as results, and stopping the gam analysis without going further when the residuals were uneven.
+#Also the reveresed x and y in one analysis.
